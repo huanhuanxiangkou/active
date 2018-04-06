@@ -1,5 +1,5 @@
 <template>
-  <el-header>
+  <el-header class="clearfloat">
       <div class="cm_header_top">
         <div class="w1080">
           <el-row>

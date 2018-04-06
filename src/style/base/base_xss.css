@@ -3,15 +3,47 @@
   margin: 0 auto;
   width: 1080px;
 }
-.tr{
-    text-align: right;
+
+.tr {
+  text-align: right;
 }
-.pd_15_0{
-    padding: 15px 0;
+
+.pd_15_0 {
+  padding: 15px 0;
 }
+
 .pd_10_0 {
-    padding: 10px 0;
+  padding: 10px 0;
 }
+
 .pd_50_0 {
-    padding: 50px 0;
+  padding: 50px 0;
 }
+
+.y {
+  float: right;
+}
+
+.cl {
+  zoom: 1;
+}
+
+.clearfloat:after {
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0
+}
+
+.clearfloat {
+  zoom: 1
+}
+.z {
+    float: left;
+}
+
+.mgt-30 {
+    margin-top: -30px;
+}
+
