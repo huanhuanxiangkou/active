@@ -4,17 +4,16 @@
           <div class="img">
                <img src="../../assets/schoolname.png" alt="">
           </div>
-          <span class="line"></span>
           <el-row type="flex" class="row-bg" justify="center">
                  <div class="imgleft">
                    <img src="../../assets/loginback.png" alt="">
                   </div>
-                    <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-                        <el-form-item label="用户名" prop="user">
-                            <el-input v-model="username" placeholder="请输入内容"></el-input>
+                    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                        <el-form-item label="用户名" prop="username">
+                            <el-input v-model="ruleForm.username" placeholder="请输入用户名"></el-input>
                         </el-form-item>  
-                          <el-form-item label="密码" prop="pass">
-                             <el-input v-model="password" placeholder="请输入内容"></el-input>
+                          <el-form-item label="密码" prop="password">
+                             <el-input v-model="ruleForm.password" placeholder="请输入密码"></el-input>
                         </el-form-item>  
                         <el-form-item>
                             <el-button type="primary" @click="login()">登陆</el-button>
@@ -28,9 +27,27 @@
 import { userLogin } from "@/api/getInfo";
 export default {
   data() {
+      var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+           callback();
+          }
+        };
     return {
-      username: "",
-      password: "",
+      ruleForm:{
+         username: '',
+         password: '',
+      }  ,
+      rules:{
+        username:[
+           { required: true, message: '请输入用户名', trigger: 'blur' },
+            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ],
+        password:[
+          { validator: validatePass, trigger: 'blur' }
+        ]
+      }
     };
   },
   methods: {
@@ -58,27 +75,38 @@ export default {
  text-align: center;
 }
 .box{
-   width: 600px;
-    height: 260px;
+   width: 50em;
+    height: 23em;
    border: 1px solid  #d02d48;
-    margin: 0  auto;
-    padding:  20px 0;
-    box-shadow: 10px  10px  20px   #948080;  
+    margin: 15em  auto;
+    padding:  1em 0;
+    box-shadow: 1em  1em  2em   #948080;  
 }
 .line{
   height: 1px;
   background: #1C8DD4;
 }
 .img  img{
-  width: 300px;
-   margin-bottom: 20px;
+  width: 28em;
+   margin-bottom: 1em;
 }
  .imgleft img{
-   width: 150px;
+   width: 160px;
  }
-
-.el-button--primary.is-active, .el-button--primary:active{
-
-background: #1C8DD4;
+.el-row--flex.is-justify-center{
+  background: #da9191;
+    padding-top: 1em;
+}
+.imgleft{
+  width: 40%;
+    border-right: 1px solid;
+    height: 70%;
+    border-color: #847171;
+}
+.el-form .demo-ruleForm{
+  margin-right: 20px;
+}
+.box  .el-form-item__error{
+  color:#1C8DD4;
 }
 </style>
