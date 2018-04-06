@@ -3,20 +3,35 @@ import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
+const home = r => require.ensure([], () => r(require('@/components/component/home')), 'home');
+
 const login = r => require.ensure([], () => r(require('@/components/page/Login')), 'login');
 
 const register = r => require.ensure([], () => r(require('@/components/page/register')), 'register');
 
+const index = r => require.ensure([], () => r(require('@/components/page/index')), 'index');
+
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'login',
-      component: login
-    },{
-      path: '/register',
-      name: 'register',
-      component: register
-    }
+      path:'',
+      name:'',
+      component: home,
+      children:[
+        {
+          path: '/',
+          name: 'login',
+          component: login
+        },{
+          path: '/register',
+          name: 'register',
+          component: register
+        },{
+          path: '/index',
+          name: 'index',
+          component: index
+        }
+      ]
+    },    
   ]
 })

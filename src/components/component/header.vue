@@ -1,0 +1,90 @@
+<template>
+  <el-header>
+      <div class="cm_header_top">
+        <div class="w1080">
+          <el-row>
+            <el-col :span="6"><span>活动网 - 全球最有活力的中文活动平台</span></el-col>
+            <el-col :span="18" class="tr"><span>你好，请登录</span> <span>免费注册</span></el-col>
+          </el-row>
+        </div>
+      </div>
+          <el-row class="w1080 pd_15_0">
+            <el-col :span="8"><div class="logo_school"></div></el-col>
+            <el-col :span="12">
+              <el-input placeholder="请输入关键字" class="input-with-select pd_10_0" style="width:502px;">
+                <el-button slot="append" icon="el-icon-search"></el-button>
+              </el-input>
+            </el-col>
+             <el-col :span="4" class="pd_10_0" style="text-align:center"><el-button type="primary" round>+发布活动</el-button></el-col>
+          </el-row>
+          <div class="cm_header_bottom">
+            <el-row class="w1080">
+            <el-menu :default-active="activeIndex" mode="horizontal">
+              <el-menu-item disabled class="header_wec">欢迎来到活动网</el-menu-item>
+              <el-menu-item index="1">首页</el-menu-item>
+              <el-menu-item index="2">活动</el-menu-item>
+              <el-menu-item index="3">贴吧</el-menu-item>
+              <el-menu-item index="4">服务</el-menu-item>
+            </el-menu>
+            </el-row>
+          </div>
+  </el-header>
+</template>
+
+<script>
+export default {
+  data() {
+    return {};
+  }
+};
+</script>
+
+<style>
+@import "../../style/base/base_xss.css";
+
+.el-header {
+  padding: 0;
+  height: auto !important;
+}
+.cm_header_top {
+  padding: 3px 0;
+  border-bottom: 1px solid #eee;
+  background: #fafafa;
+  line-height: 30px;
+  font-size: 14px;
+}
+.logo_school {
+  float: left;
+  display: block;
+  width: 210px;
+  height: 60px;
+  background: url(../../assets/nylg.png) no-repeat;
+  background-size: contain;
+}
+.cm_header_bottom {
+  background-color: #d02d48;
+}
+.cm_header_bottom .el-menu--horizontal {
+  border-bottom: none;
+  background-color: #d02d48;
+  color: #fff;
+}
+.cm_header_bottom .el-menu--horizontal > .el-menu-item {
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  color: #fff;
+}
+.cm_header_bottom .el-menu--horizontal > .el-menu-item:hover,
+.cm_header_bottom .el-menu--horizontal > .el-menu-item:focus {
+  background-color: #d48787;
+  color: #fff;
+}
+.header_wec{
+  width: 180px;
+  text-align: center;
+  color: #cae8ca !important;
+  cursor: default !important;
+  opacity: 1 !important;
+}
+</style>
