@@ -1,7 +1,7 @@
 <template>
   <div class="base">
     <div class="box">
-          <div class="img">
+          <div class="image">
                <img src="../../assets/schoolname.png" alt="">
           </div>
           <el-row type="flex" class="row-bg" justify="center">
@@ -16,8 +16,15 @@
                              <el-input v-model="ruleForm.password" placeholder="请输入密码"></el-input>
                         </el-form-item>  
                         <el-form-item>
-                            <el-button type="primary" @click="login()">登陆</el-button>
+                              <el-button type="primary" @click="login()">登陆</el-button>
                         </el-form-item>
+                        <div class="radio">
+                            <el-radio-group v-model="radio">
+                                  <el-radio :label="1">学生</el-radio>
+                                  <el-radio :label="2">社长</el-radio>
+                                  <el-radio :label="3">管理员</el-radio>
+                                </el-radio-group>
+                        </div>
                   </el-form>                 
           </el-row>   
     </div>
@@ -47,7 +54,8 @@ export default {
         password:[
           { validator: validatePass, trigger: 'blur' }
         ]
-      }
+      },
+       radio: 1,
     };
   },
   methods: {
@@ -76,17 +84,21 @@ export default {
 }
 .box{
    width: 50em;
-    height: 23em;
+    height: 27em;
    border: 1px solid  #d02d48;
     margin: 15em  auto;
     padding:  1em 0;
     box-shadow: 1em  1em  2em   #948080;  
 }
+.box .el-button--primary{
+    width: 121%;
+    margin-left: -3em;
+}
 .line{
   height: 1px;
   background: #1C8DD4;
 }
-.img  img{
+.image  img{
   width: 28em;
    margin-bottom: 1em;
 }
@@ -108,5 +120,9 @@ export default {
 }
 .box  .el-form-item__error{
   color:#1C8DD4;
+}
+.radio{
+  padding-left: 60px;
+  margin-bottom: 11px;
 }
 </style>

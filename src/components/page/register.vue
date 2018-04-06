@@ -121,7 +121,7 @@ import {userRegister} from '@/api/getInfo'
   margin-left: 2em;
 }
 .content{
- background:  #948080;
+ background:  #da9191;
  padding: 5px 0;
 }
 </style>
