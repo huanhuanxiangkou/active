@@ -16,6 +16,8 @@ const special = r => require.ensure([], () => r(require('@/components/page/speci
 const specialList = r => require.ensure([], () => r(require('@/components/page/special-list')), 'specialList');
 const myview = r => require.ensure([], () => r(require('@/components/page/mine/myview')), 'myview');
 
+const detail = r => require.ensure([], () => r(require('@/components/page/activedetail')), 'activedetail') ;
+
 export default new Router({
   routes: [
     {
@@ -40,14 +42,18 @@ export default new Router({
           path: '/index',
           name: 'index',
           component: index
-        },{
+        }, {
           path: '/special',
           name: 'special',
-          component: special,
+          component: special
         }, {
           path: '/myview',
           name: 'myview',
           component: myview
+        }, {
+          path: '/detail',
+          name: 'detail',
+          component: detail
         }
       ]
     },    

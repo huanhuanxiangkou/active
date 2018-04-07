@@ -15,8 +15,8 @@
                           <el-form-item label="密码" prop="password">
                              <el-input v-model="ruleForm.password" placeholder="请输入密码"></el-input>
                         </el-form-item>  
-                        <el-form-item>
-                              <el-button type="primary" @click="login()">登陆</el-button>
+                        <el-form-item class=" button">
+                              <el-button  type="primary" @click="login()">登陆</el-button>
                         </el-form-item>
                         <div class="radio">
                             <el-radio-group v-model="radio">
@@ -86,11 +86,11 @@ export default {
    width: 50em;
     height: 27em;
    border: 1px solid  #d02d48;
-    margin: 15em  auto;
+    margin: 10em  auto;
     padding:  1em 0;
     box-shadow: 1em  1em  2em   #948080;  
 }
-.box .el-button--primary{
+.box .button  .el-button--primary{
     width: 121%;
     margin-left: -3em;
 }
