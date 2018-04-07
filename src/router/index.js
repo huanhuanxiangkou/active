@@ -14,6 +14,7 @@ const index = r => require.ensure([], () => r(require('@/components/page/index')
 const special = r => require.ensure([], () => r(require('@/components/page/special')), 'special');
 
 const specialList = r => require.ensure([], () => r(require('@/components/page/special-list')), 'specialList');
+const myview = r => require.ensure([], () => r(require('@/components/page/mine/myview')), 'myview');
 
 export default new Router({
   routes: [
@@ -26,16 +27,16 @@ export default new Router({
       path:'',
       name:'',
       component: home,
-      children:[
+      children: [
         {
           path: '/',
           name: 'login',
           component: login
-        },{
+        }, {
           path: '/register',
           name: 'register',
           component: register
-        },{
+        }, {
           path: '/index',
           name: 'index',
           component: index
@@ -43,6 +44,10 @@ export default new Router({
           path: '/special',
           name: 'special',
           component: special,
+        }, {
+          path: '/myview',
+          name: 'myview',
+          component: myview
         }
       ]
     },    
