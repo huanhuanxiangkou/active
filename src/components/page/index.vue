@@ -36,7 +36,7 @@
           <div class="lunbo12 w1080">
               <h2>
                 <span class="bga">专题 · special</span>
-                <a href="#" class="y more" target="_blank">更多</a>
+                <router-link to="/special"><a href="#" class="y more" target="_blank">更多</a></router-link>
               </h2>
                 <el-row>
                     <el-carousel :interval="5000" arrow="always">

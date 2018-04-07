@@ -11,8 +11,17 @@ const register = r => require.ensure([], () => r(require('@/components/page/regi
 
 const index = r => require.ensure([], () => r(require('@/components/page/index')), 'index');
 
+const special = r => require.ensure([], () => r(require('@/components/page/special')), 'special');
+
+const specialList = r => require.ensure([], () => r(require('@/components/page/special-list')), 'specialList');
+
 export default new Router({
   routes: [
+    {
+      path: '/special/list',
+      name: 'list',
+      component: specialList
+    },
     {
       path:'',
       name:'',
@@ -30,6 +39,10 @@ export default new Router({
           path: '/index',
           name: 'index',
           component: index
+        },{
+          path: '/special',
+          name: 'special',
+          component: special,
         }
       ]
     },    
