@@ -1,9 +1,9 @@
 <template>
-<div class="box">
-    <div class="img">
+<div class="register-all">
+    <div class="register-img">
                <img src="../../assets/schoolname.png" alt="">
     </div>
-       <div class="content">
+       <div class="register-content">
             <div class="register">
               <span>注册南工活动网</span>
            </div>
@@ -89,7 +89,7 @@ import {userRegister} from '@/api/getInfo'
   }
 </script>
 <style>
-.box{
+.register-all{
    width: 40em;
     height: 35em;
    border: 1px solid  #d02d48;
@@ -101,26 +101,26 @@ import {userRegister} from '@/api/getInfo'
   text-align: center;
     margin: 2em 0;
 }
-.img{
+.register-img{
   text-align: center;
   margin: 0.5em;
 
 }
-.img  img{
+.register-img  img{
   width: 20em;
    /* margin-bottom: 20px; */
 }
- .box .el-input .el-input__inner{
+ .register-all .el-input .el-input__inner{
   width: 60%;
   margin-right: 10em
 }
 .register span{
   font : 700  18px/18px 'PingFangSC-Regular';
 } 
-.box  .el-form {
+.register-all  .el-form {
   margin-left: 2em;
 }
-.content{
+.register-content{
  background:  #da9191;
  padding: 5px 0;
 }

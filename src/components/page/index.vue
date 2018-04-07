@@ -57,7 +57,7 @@
           <div class="w1080">
               <h2>
                 <span>生活 · Life</span>
-                <a href="#" class="y more" target="_blank">更多</a>
+                <router-link to="/life"><a href="#" class="y more" target="_blank">更多</a></router-link>
               </h2>
               <div class="clearfloat">
               <div class="cm-life-big">
