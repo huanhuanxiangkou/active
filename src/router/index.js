@@ -11,25 +11,31 @@ const register = r => require.ensure([], () => r(require('@/components/page/regi
 
 const index = r => require.ensure([], () => r(require('@/components/page/index')), 'index');
 
+const myview = r => require.ensure([], () => r(require('@/components/page/mine/myview')), 'myview');
+
 export default new Router({
   routes: [
     {
-      path:'',
-      name:'',
+      path: '',
+      name: '',
       component: home,
-      children:[
+      children: [
         {
           path: '/',
           name: 'login',
           component: login
-        },{
+        }, {
           path: '/register',
           name: 'register',
           component: register
-        },{
+        }, {
           path: '/index',
           name: 'index',
           component: index
+        }, {
+          path: '/myview',
+          name: 'myview',
+          component: myview
         }
       ]
     },    
