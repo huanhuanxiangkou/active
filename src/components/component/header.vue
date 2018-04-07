@@ -4,7 +4,10 @@
         <div class="w1080">
           <el-row>
             <el-col :span="6"><span>活动网 - 全球最有活力的中文活动平台</span></el-col>
-            <el-col :span="18" class="tr"><span>你好，请登录</span> <span>免费注册</span></el-col>
+            <el-col :span="18" class="tr">
+              <router-link to="/" class="login-ho">你好，请登录</router-link> 
+              <router-link to="/register" class="login-ho reg-free">免费注册</router-link>
+            </el-col>
           </el-row>
         </div>
       </div>
@@ -19,9 +22,9 @@
           </el-row>
           <div class="cm_header_bottom">
             <el-row class="w1080">
-            <el-menu :default-active="activeIndex" mode="horizontal">
+            <el-menu :default-active="activeIndex" mode="horizontal" router>
               <el-menu-item disabled class="header_wec">欢迎来到活动网</el-menu-item>
-              <el-menu-item index="1">首页</el-menu-item>
+              <el-menu-item index="index">首页</el-menu-item>
               <el-menu-item index="2">活动</el-menu-item>
               <el-menu-item index="3">贴吧</el-menu-item>
               <el-menu-item index="4">服务</el-menu-item>
@@ -41,6 +44,16 @@ export default {
 
 <style>
 @import "../../style/base/base_xss.css";
+
+.reg-free{
+  color: #d02d48;
+}
+.login-ho{
+  margin-right: 20px;
+}
+.login-ho:hover{
+  color: #d48787;
+}
 
 .el-header {
   padding: 0;
