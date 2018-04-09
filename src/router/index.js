@@ -23,6 +23,8 @@ const detail = r => require.ensure([], () => r(require('@/components/page/active
 const life = r => require.ensure([], () => r(require('@/components/page/life')), 'life');
 const allActive = r =>require.ensure([],()=>r(require('@/components/page/allactive')),'allactive');
 
+const publish = r => require.ensure([], () => r(require('@/components/page/publish')), 'publish');
+
 export default new Router({
   routes: [
     {
@@ -67,6 +69,10 @@ export default new Router({
           path: '/allActive',
           name: ' allactive',
           component: allActive
+        },{
+          path: '/publish',
+          name: 'publish',
+          component: publish
         }
       ]
     },    

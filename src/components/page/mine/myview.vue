@@ -19,7 +19,7 @@
               </div>
                <div class="myhome-sidebar-nav">
                   <ul>
-                    <li><a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17775&amp;do=profile&amp;op=huodong" class="on">参加的活动</a></li>
+                      <li><a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17775&amp;do=profile&amp;op=huodong" class="on">参加的活动</a></li>
                       <li><a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17775&amp;do=profile&amp;op=huodong&amp;type=post">发布的活动</a></li>
                       <li><a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17775&amp;do=profile&amp;op=huodong&amp;type=shoucang">收藏的活动</a></li>
                       <li><a href="http://www.huodongwang.com/home.php?mod=spacecp&amp;ac=profile">账户设置</a></li>
@@ -28,13 +28,21 @@
                 </div>
               </div>
               <div class="myhome-content">
-              <div class="myhome-content-content" style="margin-right:0"> 
+              <!-- <div class="myhome-content-content" style="margin-right:0"> 
                     <div class="noContent">还没有参加过活动- -|||</div>      
                     <div style="margin:15px 0" class="cl"></div>
-              </div>
+              </div> -->
+              <div class="myhome-article cl">
+                <a href="http://bj.huodongwang.com/article-91114-1.html" class="img" style="background-image:url(data/attachment/data/attachment/cnyinglan_huodongs/2018/043/104531vwsmmokwonwm6siz.jpg_252_189_2_0.jpg)"></a>
+                <div class="info">
+                    <h2><a href="http://bj.huodongwang.com/article-91114-1.html" target="_blank">[4.7周六]欢 乐 狼 人 杀—蒙面涛涛复活指刀|友行友派</a></h2>
+                    <p>发布者：<a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17320&amp;do=profile&amp;op=huodong">友行友派</a><span class="state">状态：已收藏</span></p>
+                    <p>活动时间：2018-04-07 13:00-2018-04-07 19:00</p>
+                    <p><a href="javascript:;" class="btn btn-danger" onclick="deleshoucang('1067')">删除收藏</a></p>
+                </div>
+            </div>
            </div>
           </div>
-          
   </div>
 </template>
 <script>
@@ -48,15 +56,6 @@ export default {
 </script>
 <style>
 @import "../../../style/base/base_xss.css";  
-.w1080, .wp {
-    margin: 0 auto;
-    width: 1080px;
-}
-.w1080 *, .w1080 *:before, .w1080 *:after, .box-sizing *, .box-sizing *:before, .box-sizing *:after {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
 
 .cm-page {
     width: auto;
@@ -152,6 +151,62 @@ export default {
     padding: 50px 15px;
     text-align: center;
     background-color: #fff;
+}
+
+.myhome-article {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.myhome-article .img {
+    float: left;
+    background: no-repeat center center / cover;
+    width: 150px;
+    height: 110px;
+    margin-right: 15px;
+}
+
+.myhome-article .info {
+    overflow: hidden;
+    min-height: 110px;
+}
+
+.myhome-article .info h2 {
+    font-size: 16px;
+    font-weight: 400;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 10px;
+}
+
+.myhome-article .info p {
+    margin-top: 10px;
+}
+
+.myhome-article .info .state {
+    padding-left: 15px;
+}
+
+.myhome-article .info p {
+    margin-top: 10px;
+}
+
+.myhome-article .info p {
+    margin-top: 10px;
+}
+
+.myhome .btn-danger {
+    background-color: #dd514c;
+    border-color: #dd514c;
+}
+
+.myhome .btn {
+    display: inline-block;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
 }
 </style>
 

@@ -18,7 +18,9 @@
                 <el-button slot="append" icon="el-icon-search"></el-button>
               </el-input>
             </el-col>
-             <el-col :span="4" class="pd_10_0" style="text-align:center"><el-button type="primary" round>+发布活动</el-button></el-col>
+             <el-col :span="4" class="pd_10_0" style="text-align:center">
+               <el-button type="primary" round @click="publishActive()">+发布活动</el-button>
+             </el-col>
           </el-row>
           <div class="cm_header_bottom">
             <el-row class="w1080">
@@ -39,7 +41,12 @@
 export default {
   data() {
     return {};
-  }
+  },
+  methods:{
+    publishActive(){
+      this.$router.push({path:"/publish"});
+    }
+  },
 };
 </script>
 
