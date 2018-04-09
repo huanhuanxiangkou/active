@@ -20,6 +20,8 @@ const myview = r => require.ensure([], () => r(require('@/components/page/mine/m
 
 const life = r => require.ensure([], () => r(require('@/components/page/life')), 'life');
 
+const publish = r => require.ensure([], () => r(require('@/components/page/publish')), 'publish');
+
 export default new Router({
   routes: [
     {
@@ -56,6 +58,10 @@ export default new Router({
           path: '/life',
           name: 'life',
           component: life
+        },{
+          path: '/publish',
+          name: 'publish',
+          component: publish
         }
       ]
     },    
