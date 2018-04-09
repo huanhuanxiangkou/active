@@ -21,6 +21,7 @@ const myview = r => require.ensure([], () => r(require('@/components/page/mine/m
 const detail = r => require.ensure([], () => r(require('@/components/page/activedetail')), 'activedetail') ;
 
 const life = r => require.ensure([], () => r(require('@/components/page/life')), 'life');
+const allActive = r =>require.ensure([],()=>r(require('@/components/page/allactive')),'allactive');
 
 export default new Router({
   routes: [
@@ -58,10 +59,14 @@ export default new Router({
           path: '/detail',
           name: 'detail',
           component: detail
-        },{
+        }, {
           path: '/life',
           name: 'life',
           component: life
+        }, {
+          path: '/allActive',
+          name: ' allactive',
+          component: allActive
         }
       ]
     },    

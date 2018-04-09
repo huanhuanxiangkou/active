@@ -3,7 +3,7 @@
       <div class="cm_header_top">
         <div class="w1080">
           <el-row>
-            <el-col :span="6"><span>活动网 - 全球最有活力的中文活动平台</span></el-col>
+            <el-col :span="6"><span>南工活动发布 - 走出封闭，拉近距离</span></el-col>
             <el-col :span="18" class="tr">
               <router-link to="/" class="login-ho">你好，请登录</router-link> 
               <router-link to="/register" class="login-ho reg-free">免费注册</router-link>
@@ -25,9 +25,10 @@
             <el-menu :default-active="activeIndex" mode="horizontal" router>
               <el-menu-item disabled class="header_wec">欢迎来到活动网</el-menu-item>
               <el-menu-item index="index">首页</el-menu-item>
-              <el-menu-item index="2">活动</el-menu-item>
-              <el-menu-item index="3">贴吧</el-menu-item>
-              <el-menu-item index="4">服务</el-menu-item>
+              <el-menu-item index="2">校办</el-menu-item>
+              <el-menu-item index="3">系办</el-menu-item>
+              <el-menu-item index="4">团体</el-menu-item>
+              <el-menu-item index="5">个人</el-menu-item>
             </el-menu>
             </el-row>
           </div>
