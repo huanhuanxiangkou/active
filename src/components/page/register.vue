@@ -90,12 +90,12 @@ import {userRegister} from '@/api/getInfo'
 </script>
 <style>
 .register-all{
-   width: 40em;
+   width: 50em;
     height: 35em;
    border: 1px solid  #d02d48;
-    margin: 150px  auto;
-    padding:  10px 0;
-    box-shadow: 10px  10px  20px   #948080;  
+    margin: 10em  auto;
+    padding:  1em 0;
+    box-shadow: 1em  1em  2em   #948080;  
 }
 .register{
   text-align: center;
