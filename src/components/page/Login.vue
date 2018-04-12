@@ -99,7 +99,7 @@ export default {
   background: #1C8DD4;
 }
 .image  img{
-  width: 28em;
+  width: 20em;
    margin-bottom: 1em;
 }
  .imgleft img{

@@ -22,7 +22,11 @@ const detail = r => require.ensure([], () => r(require('@/components/page/active
 
 const life = r => require.ensure([], () => r(require('@/components/page/life')), 'life');
 
+const allActive = r => require.ensure([],()=>r(require('@/components/page/allactive')),'allactive');
+
 const publish = r => require.ensure([], () => r(require('@/components/page/publish')), 'publish');
+
+const person = r => require.ensure([], () => r(require('@/components/page/mine/personmessage')), 'personmessage');
 
 export default new Router({
   routes: [
@@ -32,8 +36,8 @@ export default new Router({
       component: specialList
     },
     {
-      path:'',
-      name:'',
+      path: '',
+      name: '',
       component: home,
       children: [
         {
@@ -60,14 +64,22 @@ export default new Router({
           path: '/detail',
           name: 'detail',
           component: detail
-        },{
+        }, {
           path: '/life',
           name: 'life',
           component: life
+        }, {
+          path: '/allActive',
+          name: ' allactive',
+          component: allActive
         },{
           path: '/publish',
           name: 'publish',
           component: publish
+        },{
+          path: '/person',
+          name: 'person',
+          component: person
         }
       ]
     },    
