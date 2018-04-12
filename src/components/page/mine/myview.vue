@@ -22,7 +22,8 @@
                       <li><a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17775&amp;do=profile&amp;op=huodong" class="on">参加的活动</a></li>
                       <li><a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17775&amp;do=profile&amp;op=huodong&amp;type=post">发布的活动</a></li>
                       <li><a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17775&amp;do=profile&amp;op=huodong&amp;type=shoucang">收藏的活动</a></li>
-                      <li><a href="http://www.huodongwang.com/home.php?mod=spacecp&amp;ac=profile">账户设置</a></li>
+                      <li><a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17775&amp;do=profile&amp;op=huodong&amp;type=post">待审核的活动</a></li>
+                      <li><a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17775&amp;do=profile&amp;op=huodong&amp;type=post">已审核的活动</a></li>
                       <li><a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17775&amp;do=profile">个人资料</a></li>
                   </ul>
                 </div>

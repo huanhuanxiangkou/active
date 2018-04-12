@@ -1,16 +1,16 @@
 <template>
   <div class="index">
       <div class="lunbo1 w1080">
-          <el-carousel :interval="5000" type="card" height="360px">
+          <!-- <el-carousel :interval="5000" type="card" height="360px">
             <el-carousel-item v-for="imagePath in imagePaths" :key="imagePath">
                 <h3><img width="650px" height="360px" :src="imagePath" alt=""></h3>
             </el-carousel-item>
-          </el-carousel>
-          <!-- <el-carousel :interval="5000" arrow="always">
-            <el-carousel-item v-for="imagePath in imagePaths" :key="imagePath">
-            <a><img width="1080px" height="360px" :src="imagePath" alt=""></a>
-            </el-carousel-item>
           </el-carousel> -->
+          <el-carousel :interval="5000" arrow="always">
+            <el-carousel-item v-for="imagePath in imagePaths" :key="imagePath">
+            <a><img width="1080px" height="400px" :src="imagePath" alt=""></a>
+            </el-carousel-item>
+          </el-carousel>
       </div>
       <div class="boxbg pd_50_0">
           <div class="w1080">

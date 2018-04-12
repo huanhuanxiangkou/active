@@ -21,9 +21,12 @@ const myview = r => require.ensure([], () => r(require('@/components/page/mine/m
 const detail = r => require.ensure([], () => r(require('@/components/page/activedetail')), 'activedetail') ;
 
 const life = r => require.ensure([], () => r(require('@/components/page/life')), 'life');
-const allActive = r =>require.ensure([],()=>r(require('@/components/page/allactive')),'allactive');
+
+const allActive = r => require.ensure([],()=>r(require('@/components/page/allactive')),'allactive');
 
 const publish = r => require.ensure([], () => r(require('@/components/page/publish')), 'publish');
+
+const person = r => require.ensure([], () => r(require('@/components/page/mine/personmessage')), 'personmessage');
 
 export default new Router({
   routes: [
@@ -33,8 +36,8 @@ export default new Router({
       component: specialList
     },
     {
-      path:'',
-      name:'',
+      path: '',
+      name: '',
       component: home,
       children: [
         {
@@ -73,6 +76,10 @@ export default new Router({
           path: '/publish',
           name: 'publish',
           component: publish
+        },{
+          path: '/person',
+          name: 'person',
+          component: person
         }
       ]
     },    

@@ -27,10 +27,10 @@
             <el-menu :default-active="activeIndex" mode="horizontal" router>
               <el-menu-item disabled class="header_wec">欢迎来到活动网</el-menu-item>
               <el-menu-item index="index">首页</el-menu-item>
-              <el-menu-item index="2">校办</el-menu-item>
-              <el-menu-item index="3">系办</el-menu-item>
-              <el-menu-item index="4">团体</el-menu-item>
-              <el-menu-item index="5">个人</el-menu-item>
+              <el-menu-item index="allActive">校办</el-menu-item>
+              <el-menu-item index="allActive">系办</el-menu-item>
+              <el-menu-item index="allActive">团体</el-menu-item>
+              <el-menu-item index="allActive">个人</el-menu-item>
             </el-menu>
             </el-row>
           </div>
