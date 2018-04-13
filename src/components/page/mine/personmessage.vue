@@ -1,7 +1,7 @@
 <template>
-   <div class="w1080 ">
+   <div class="middle ">
        <div class="form">
-         <el-form ref="form" :model="form" label-width="180px">
+         <el-form ref="form" :model="form" label-width="100px">
             <el-form-item>
                 <el-upload
                   class="avatar-uploader"
@@ -22,11 +22,10 @@
              </el-form-item>
                <el-form-item label="出生日期：">
                    <el-date-picker
-                      v-model="value3"
-                      type="datetime"
-                      placeholder="选择日期时间"
-                      default-time="12:00:00">
-                    </el-date-picker>
+                    v-model="value1"
+                    type="date"
+                    placeholder="选择日期">
+                  </el-date-picker>
              </el-form-item>
              <el-form-item label="手机号码：">
               <el-input v-model="form.name"></el-input>
@@ -78,12 +77,20 @@ export default {
 }
 </script>
 <style>
+.middle{
+  margin:  0 auto ;
+  width:700px;
+  background: #ddd;
+}
  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
+    border: 1px dashed #d02d48;
     border-radius: 6px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+  }
+  .avatar-uploader{
+    text-align: center;
   }
   .avatar-uploader .el-upload:hover {
     border-color: #409EFF;
@@ -104,5 +111,7 @@ export default {
   .form{
     /* text-align: center; */
     margin: 60px  auto;
+    padding:  20px 0;
+    width: 500px;
   }
 </style>
