@@ -11,8 +11,8 @@
                 <el-form-item label="用户名" prop="name">
                   <el-input v-model="ruleForm.name"></el-input>
                 </el-form-item>
-              <el-form-item label="密码" prop="pass">
-                  <el-input type="password" v-model="ruleForm.pass" auto-complete="off"></el-input>
+              <el-form-item label="密码" prop="password">
+                  <el-input type="password" v-model="ruleForm.password" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="确认密码" prop="checkPass">
                   <el-input type="password" v-model="ruleForm.checkPass" auto-complete="off"></el-input>
@@ -42,7 +42,7 @@ import {userRegister} from '@/api/getInfo'
        var validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.pass) {
+        } else if (value !== this.ruleForm.password) {
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
@@ -51,7 +51,7 @@ import {userRegister} from '@/api/getInfo'
       return {
         ruleForm: {
           name: '',
-          pass:'',
+          password:'',
           checkPass:''
         },
         rules: {
@@ -59,7 +59,7 @@ import {userRegister} from '@/api/getInfo'
              { required: true, message: '请输入用户名', trigger: 'blur' },
             { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ],
-          pass:[
+          password:[
            {required: true, validator: validatePass, trigger: 'blur' }
           ],
           checkPass: [

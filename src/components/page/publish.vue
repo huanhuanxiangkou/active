@@ -6,30 +6,43 @@
             <el-form-item label="活动名称" prop="name">
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-          <el-form-item label="活动区域" prop="region">
-            <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
+          <el-form-item label="活动区域" prop="address">
+               <el-input v-model="ruleForm.address"></el-input>
+            <!-- <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
               <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
+              <el-option label="区域二" value="beijing"></el-option> -->
+            <!-- </el-select> -->
           </el-form-item>
           <el-form-item label="活动时间" required>
-               <el-date-picker
-                  type="datetimerange"
-                  align="right"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
-                  :default-time="['12:00:00', '08:00:00']">
+               <div class="demonstration">值：{{ ruleForm.dateStart }}</div>
+               <span>开始时间：</span>
+                <el-date-picker
+                  v-model="ruleForm.dateStart"
+                  type="date"
+                  placeholder="选择日期"
+                  format="yyyy 年 MM 月 dd 日"
+                  value-format="yyyy-MM-dd">
+                </el-date-picker>
+                 <div class="demonstration">值：{{ ruleForm.dateEnd }}</div>
+                 <span>结束日期：</span>
+                <el-date-picker
+                  v-model="ruleForm.dateEnd"
+                  type="date"
+                  placeholder="选择日期"
+                  format="yyyy 年 MM 月 dd 日"
+                  value-format="yyyy-MM-dd">
                 </el-date-picker>
           </el-form-item>
           <el-form-item label="上传图片" required>
             <el-col :span="24">
+              <P>{{ruleForm.photoUrl}}</P>
             <el-upload
                 drag
                 action="https://jsonplaceholder.typicode.com/posts/"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
                 >
-                 <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                 <img v-if="ruleForm.photoUrl" :src="ruleForm.photoUrl" class="avatar">
                  <div v-else>
                   <i class="el-icon-upload"></i>
                   <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -38,12 +51,19 @@
               </el-upload>
               </el-col>
           </el-form-item>
-          <el-form-item label="活动人数">
-              <el-input></el-input>
+          <el-form-item label="活动人数"  v-model="ruleForm.count">
+              <el-input  v-model="ruleForm.count"></el-input>
           </el-form-item>
-           <el-form-item label="活动类型">
-              <el-radio-group>
-                <el-radio border label="迎新晚会"></el-radio>
+           <el-form-item label="活动类型" v-model="ruleForm.list">
+             <P>{{ ruleForm.list}}</P>
+              <el-checkbox-group 
+                v-model="ruleForm.list"
+                :min="1"
+                :max="2">
+                <el-checkbox v-for="city in ruleForm.cities" :label="city" :key="city">{{city}}</el-checkbox>
+              </el-checkbox-group>
+              <!-- <el-radio-group>
+                <el-radio v-model="ruleForm.type"   border  label="迎新晚会"></el-radio>
                 <el-radio border label="英语演讲"></el-radio>
                 <el-radio border label="广场活动"></el-radio>
                 <el-radio border label="个人活动"></el-radio>
@@ -51,14 +71,15 @@
                 <el-radio border label="校办活动"></el-radio>
                 <el-radio border label="系办活动"></el-radio>
                 <el-radio border label="餐厅活动"></el-radio>
-              </el-radio-group>
+              </el-radio-group> -->
             </el-form-item>
           
           <el-form-item label="详细信息" required class="active-detail">
+            <span>{{ruleForm.detail}}</span>
             <UE :defaultMsg=defaultMsg :config="config" ref="ue"></UE>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">立即发布</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -68,6 +89,8 @@
 
 <script>
 import UE from '../component/ue';
+import {userpublish} from '@/api/getInfo'
+const cityOptions = ['迎新晚会', '英语演讲', '广场活动', '个人活动','团队活动','校办活动','系办活动','餐厅活动'];
 export default {
   components: {UE},
   data() {
@@ -75,19 +98,24 @@ export default {
        defaultMsg: '这里是UE测试',
         config: {
           initialFrameWidth: null,
-          initialFrameHeight:300
+          initialFrameHeight:300,
+          toolbars: [
+            ['fullscreen', 'source', 'undo', 'redo'],
+            ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote','fontfamily','fontsize', 'pasteplain', '|','simpleupload','inserttable', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+        ]
       },
-      imageUrl:"",
+      // imageUrl:"",
       ruleForm: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: "",
-        
+              name: "",
+              address: "",
+              dateStart:"",
+              dateEnd:'',
+              photoUrl:"",
+              resource: "",
+              detail:"" ,
+              count:  50,     
+              list: ['迎新晚会', '英语演讲'],
+              cities: cityOptions
       },
       rules: {
         name: [
@@ -129,31 +157,37 @@ export default {
     };
   },
   methods: {
+ 
      handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
       },
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+       let content = this.$refs.ue.getUEContent();
+      this. ruleForm.detail =content;
+      console.log(this.ruleForm);
+       this.$refs[formName].validate((valid) => {
+          if (valid) {
+            userpublish(this.ruleForm).then( res=> {
+              console.log(res);
+            }).catch();
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    getUEContent() {
-        let content = this.$refs.ue.getUEContent();
-        this.$notify({
-          title: '获取成功，可在控制台查看！',
-          message: content,
-          type: 'success'
-        });
-        console.log(content)
-      }
+    // getUEContent() {
+    //     let content = this.$refs.ue.getUEContent();
+    //     this.$notify({
+    //       title: '获取成功，可在控制台查看！',
+    //       message: content,
+    //       type: 'success'
+    //     });
+    //     console.log(content)
+    //   }
   }
 };
 </script>

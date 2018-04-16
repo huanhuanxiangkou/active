@@ -15,22 +15,25 @@
                           <el-form-item label="密码" prop="password">
                              <el-input v-model="ruleForm.password" placeholder="请输入密码"></el-input>
                         </el-form-item>  
-                        <el-form-item class=" button">
+                        <el-form-item>
+                            <!-- <div class="radio"> -->
+                                <el-radio-group v-model="ruleForm.role">
+                                      <el-radio :label="1">学生</el-radio>
+                                      <el-radio :label="2">社长</el-radio>
+                                      <el-radio :label="3">管理员</el-radio>
+                                  </el-radio-group>
+                            <!-- </div> -->
+                        </el-form-item>
+                         <el-form-item class=" button">
                               <el-button  type="primary" @click="login()">登陆</el-button>
                         </el-form-item>
-                        <div class="radio">
-                            <el-radio-group v-model="radio">
-                                  <el-radio :label="1">学生</el-radio>
-                                  <el-radio :label="2">社长</el-radio>
-                                  <el-radio :label="3">管理员</el-radio>
-                                </el-radio-group>
-                        </div>
                   </el-form>                 
           </el-row>   
     </div>
   </div>
 </template>
 <script>
+// <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
 import { userLogin } from "@/api/getInfo";
 export default {
   data() {
@@ -45,6 +48,7 @@ export default {
       ruleForm:{
          username: '',
          password: '',
+         role:2,
       }  ,
       rules:{
         username:[
@@ -60,9 +64,9 @@ export default {
   },
   methods: {
     login() {
-      userLogin(this.password, this.username)
+      userLogin(this.ruleForm.password,this.ruleForm.username,this.ruleForm.role )
         .then(res => {
-          console.log(res);
+          this.$router.push({path:"/index"});
         })
         .catch();
     }
@@ -126,3 +130,4 @@ export default {
   margin-bottom: 11px;
 }
 </style>
+  
