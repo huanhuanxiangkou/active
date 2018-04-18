@@ -24,9 +24,8 @@
           </el-row>
           <div class="cm_header_bottom">
             <el-row class="w1080">
-            <!-- <el-menu :default-active="activeIndex" mode="horizontal" router> -->
-            <el-menu  mode="horizontal" router>
-              <el-menu-item index  disabled class="header_wec">欢迎来到活动网</el-menu-item>
+            <el-menu :default-active="activeIndex" mode="horizontal" router>
+              <el-menu-item disabled class="header_wec">欢迎来到活动网</el-menu-item>
               <el-menu-item index="index">首页</el-menu-item>
               <el-menu-item index="allActive">校办</el-menu-item>
               <el-menu-item index="allActive">系办</el-menu-item>

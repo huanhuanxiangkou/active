@@ -38,7 +38,7 @@
               <P>{{ruleForm.photoUrl}}</P>
             <el-upload
                 drag
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action="http://localhost:5000/upload/picture"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
                 >
