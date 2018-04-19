@@ -3,7 +3,7 @@
       <div class="cm_header_top">
         <div class="w1080">
           <el-row>
-            <el-col :span="6"><span>南工活动发布 - 走出封闭，拉近距离</span></el-col>
+            <el-col :span="6"><span>南工活动发布 - 拉近距离的牵引力</span></el-col>
             <el-col :span="18" class="tr">
               <router-link to="/" class="login-ho">你好，请登录</router-link> 
               <router-link to="/register" class="login-ho reg-free">免费注册</router-link>
@@ -24,8 +24,8 @@
           </el-row>
           <div class="cm_header_bottom">
             <el-row class="w1080">
-            <el-menu :default-active="activeIndex" mode="horizontal" router>
-              <el-menu-item disabled class="header_wec">欢迎来到活动网</el-menu-item>
+            <el-menu   mode="horizontal" router>
+              <el-menu-item index disabled class="header_wec">欢迎来到活动网</el-menu-item>
               <el-menu-item index="index">首页</el-menu-item>
               <el-menu-item index="allActive">校办</el-menu-item>
               <el-menu-item index="allActive">系办</el-menu-item>
