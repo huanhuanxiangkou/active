@@ -8,10 +8,6 @@
             </el-form-item>
           <el-form-item label="活动区域" prop="address">
                <el-input v-model="ruleForm.address"></el-input>
-            <!-- <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option> -->
-            <!-- </el-select> -->
           </el-form-item>
           <el-form-item label="活动时间" required>
                <div class="demonstration">值：{{ ruleForm.dateStart }}</div>
@@ -36,7 +32,16 @@
           <el-form-item label="上传图片" required>
             <el-col :span="24">
               <P>{{ruleForm.photoUrl}}</P>
-            <el-upload
+              <el-upload
+                class="upload-demo"
+                drag
+                action="https://jsonplaceholder.typicode.com/posts/"
+                multiple>
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+              </el-upload>
+            <!-- <el-upload
                 drag
                 action="http://localhost:5000/upload/picture"
                 :show-file-list="false"
@@ -48,7 +53,7 @@
                   <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </div>
                 <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-              </el-upload>
+              </el-upload> -->
               </el-col>
           </el-form-item>
           <el-form-item label="活动人数"  v-model="ruleForm.count">
@@ -120,7 +125,7 @@ export default {
       rules: {
         name: [
           { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
         ],
         region: [
           { required: true, message: "请选择活动区域", trigger: "change" }

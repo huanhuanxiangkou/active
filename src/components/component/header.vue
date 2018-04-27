@@ -5,6 +5,7 @@
           <el-row>
             <el-col :span="6"><span>南工活动发布 - 拉近距离的牵引力</span></el-col>
             <el-col :span="18" class="tr">
+                {{username}}
               <router-link to="/" class="login-ho">你好，请登录</router-link> 
               <router-link to="/register" class="login-ho reg-free">免费注册</router-link>
             </el-col>
@@ -41,6 +42,13 @@
 export default {
   data() {
     return {};
+  },
+   computed:{
+      username(){
+          let username = localStorage.getItem('ms_username');
+          console.log('username--------'  ,username);
+          // return username ? username : this.name;
+      }
   },
   methods:{
     publishActive(){

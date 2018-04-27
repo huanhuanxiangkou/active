@@ -46,7 +46,7 @@ export default {
         };
     return {
       ruleForm:{
-         username: '',
+         username: '郭红环',
          password: '',
          role:2,
       }  ,
@@ -66,7 +66,16 @@ export default {
     login() {
       userLogin(this.ruleForm.password,this.ruleForm.username,this.ruleForm.role )
         .then(res => {
-          this.$router.push({path:"/index"});
+          console.log(res.data.code)
+          if (res.data.code===200 ){
+               localStorage.setItem('ms_username',this.ruleForm.username);
+                let username = localStorage.getItem('ms_username');
+               console.log('username', username);
+                this.$router.push({path:"/index"});
+          }
+          else{
+            alert('请输入正确的用户名或密码');
+          }
         })
         .catch();
     }
