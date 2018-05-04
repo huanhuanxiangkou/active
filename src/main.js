@@ -12,8 +12,14 @@ import '../static/UE/ueditor.parse.min.js'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import vueQuillEditor from 'vue-quill-editor' // 引入富文本工具
+// 你可以在man.js里全局引入
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+Vue.use(vueQuillEditor)
 Vue.prototype.$ajax = axios
 /* eslint-disable no-new */
 new Vue({
