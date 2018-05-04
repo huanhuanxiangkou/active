@@ -82,7 +82,17 @@
           <el-form-item label="详细信息" required class="active-detail">
             <!-- <span>{{ruleForm.detail}}</span>
             <UE :defaultMsg=defaultMsg :config="config" ref="ue"></UE> -->
-            <v-vueQuillEditor></v-vueQuillEditor>
+            <!-- <v-vueQuillEditor></v-vueQuillEditor> -->
+            <quill-editor
+                class="quill" 
+                v-model="ruleForm.detail" 
+                ref="myQuillEditor"
+                :options="editorOption"
+                @blur="onEditorBlur($event)"
+                @focus="onEditorFocus($event)"
+                @ready="onEditorReady($event)"
+                >
+            </quill-editor>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">立即发布</el-button>
@@ -94,35 +104,68 @@
 </template>
 
 <script>
-import UE from '../component/ue';
-import {userpublish} from '@/api/getInfo'
-import vueQuillEditor from './edit.vue'
-const cityOptions = ['迎新晚会', '英语演讲', '广场活动', '个人活动','团队活动','校办活动','系办活动','餐厅活动'];
+import UE from "../component/ue";
+import { userpublish } from "@/api/getInfo";
+import vueQuillEditor from "./edit.vue";
+const cityOptions = [
+  "迎新晚会",
+  "英语演讲",
+  "广场活动",
+  "个人活动",
+  "团队活动",
+  "校办活动",
+  "系办活动",
+  "餐厅活动"
+];
 export default {
-  components: {UE},
+  components: { UE },
   data() {
     return {
-       defaultMsg: '这里是UE测试',
-        config: {
-          initialFrameWidth: null,
-          initialFrameHeight:300,
-          toolbars: [
-            ['fullscreen', 'source', 'undo', 'redo'],
-            ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote','fontfamily','fontsize', 'pasteplain', '|','simpleupload','inserttable', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+      defaultMsg: "这里是UE测试",
+      config: {
+        initialFrameWidth: null,
+        initialFrameHeight: 300,
+        toolbars: [
+          ["fullscreen", "source", "undo", "redo"],
+          [
+            "bold",
+            "italic",
+            "underline",
+            "fontborder",
+            "strikethrough",
+            "superscript",
+            "subscript",
+            "removeformat",
+            "formatmatch",
+            "autotypeset",
+            "blockquote",
+            "fontfamily",
+            "fontsize",
+            "pasteplain",
+            "|",
+            "simpleupload",
+            "inserttable",
+            "forecolor",
+            "backcolor",
+            "insertorderedlist",
+            "insertunorderedlist",
+            "selectall",
+            "cleardoc"
+          ]
         ]
       },
       // imageUrl:"",
       ruleForm: {
-              name: "",
-              address: "",
-              dateStart:"",
-              dateEnd:'',
-              photoUrl:"",
-              resource: "",
-              detail:"" ,
-              count:  50,     
-              list: ['迎新晚会', '英语演讲'],
-              cities: cityOptions
+        name: "",
+        address: "",
+        dateStart: "",
+        dateEnd: "",
+        photoUrl: "",
+        resource: "",
+        detail: "",
+        count: 50,
+        list: ["迎新晚会", "英语演讲"],
+        cities: cityOptions
       },
       rules: {
         name: [
@@ -163,41 +206,44 @@ export default {
       }
     };
   },
-   components: {
-      'v-vueQuillEditor': vueQuillEditor
-    },
   methods: {
- 
-     handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-      },
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+    },
     submitForm(formName) {
-       let content = this.$refs.ue.getUEContent();
-      this. ruleForm.detail =content;
-      console.log(this.ruleForm);
-       this.$refs[formName].validate((valid) => {
-          if (valid) {
-            userpublish(this.ruleForm).then( res=> {
+      // let content = this.getUEContent();
+      // this.ruleForm.detail = content;
+      // console.log(this.ruleForm);
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          userpublish(this.ruleForm)
+            .then(res => {
               console.log(res);
-            }).catch();
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+            })
+            .catch();
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    // getUEContent() {
-    //     let content = this.$refs.ue.getUEContent();
-    //     this.$notify({
-    //       title: '获取成功，可在控制台查看！',
-    //       message: content,
-    //       type: 'success'
-    //     });
-    //     console.log(content)
-    //   }
+
+    onEditorBlur(quill) {
+      console.log("editor blur!", quill);
+    },
+    onEditorFocus(quill) {
+      console.log("editor focus!", quill);
+    },
+    onEditorReady(quill) {
+      console.log("editor ready!", quill);
+    },
+    onEditorChange({ quill, html, text }) {
+      console.log("editor change!", quill, html, text);
+      this.content = html;
+    }
   }
 };
 </script>
@@ -229,21 +275,21 @@ export default {
   padding-left: 30px;
 }
 
-.active-form .el-upload-dragger{
+.active-form .el-upload-dragger {
   width: 472px;
   height: 280px;
 }
 
-.active-form .el-upload-dragger .el-icon-upload{
-font-size: 100px;
-line-height: 112px;
+.active-form .el-upload-dragger .el-icon-upload {
+  font-size: 100px;
+  line-height: 112px;
 }
 
 .active-form .el-radio.is-bordered {
-    padding: 12px 14px 0 10px;
-    }
+  padding: 12px 14px 0 10px;
+}
 
-.active-detail .el-form-item__content{
-      line-height: 14px;
-    }
+.active-detail .el-form-item__content {
+  line-height: 14px;
+}
 </style>
