@@ -35,7 +35,7 @@
               <el-upload
                 class="upload-demo"
                 drag
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action="http://localhost:5000/upload/picture"
                 multiple>
                 <i class="el-icon-upload"></i>
                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -80,8 +80,9 @@
             </el-form-item>
           
           <el-form-item label="详细信息" required class="active-detail">
-            <span>{{ruleForm.detail}}</span>
-            <UE :defaultMsg=defaultMsg :config="config" ref="ue"></UE>
+            <!-- <span>{{ruleForm.detail}}</span>
+            <UE :defaultMsg=defaultMsg :config="config" ref="ue"></UE> -->
+            <v-vueQuillEditor></v-vueQuillEditor>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">立即发布</el-button>
@@ -95,6 +96,7 @@
 <script>
 import UE from '../component/ue';
 import {userpublish} from '@/api/getInfo'
+import vueQuillEditor from './edit.vue'
 const cityOptions = ['迎新晚会', '英语演讲', '广场活动', '个人活动','团队活动','校办活动','系办活动','餐厅活动'];
 export default {
   components: {UE},
@@ -161,6 +163,9 @@ export default {
       }
     };
   },
+   components: {
+      'v-vueQuillEditor': vueQuillEditor
+    },
   methods: {
  
      handleAvatarSuccess(res, file) {

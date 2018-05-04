@@ -75,7 +75,7 @@ import {userRegister} from '@/api/getInfo'
           if (valid) {
             userRegister(this.ruleForm).then( res=> {
               console.log(res);
-               this.$router.push({path:"/index"});
+               this.$router.push({path:"/login"});
             }).catch();
           } else {
             console.log('error submit!!');

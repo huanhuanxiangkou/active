@@ -47,6 +47,7 @@ export default {
       username(){
           let username = localStorage.getItem('ms_username');
           console.log('username--------'  ,username);
+          return username;
           // return username ? username : this.name;
       }
   },

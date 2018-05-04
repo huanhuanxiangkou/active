@@ -66,6 +66,7 @@ export default {
     login() {
       userLogin(this.ruleForm.password,this.ruleForm.username,this.ruleForm.role )
         .then(res => {
+          console.log('res========',res)
           console.log(res.data.code)
           if (res.data.code===200 ){
                localStorage.setItem('ms_username',this.ruleForm.username);
