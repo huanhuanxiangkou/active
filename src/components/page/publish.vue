@@ -35,8 +35,9 @@
               <el-upload
                 class="upload-demo"
                 drag
-                action="http://localhost:5000/upload/picture"
-                multiple>
+                action="http://127.0.0.1:5000/upload/picture"
+                multiple
+                :on-success="handleAvatarSuccess">
                 <i class="el-icon-upload"></i>
                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -209,7 +210,9 @@ export default {
   },
   methods: {
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+      if(res.code===200){
+        this.ruleForm.photoUrl=res.data.url;
+      }
     },
     submitForm(formName) {
       // let content = this.getUEContent();
