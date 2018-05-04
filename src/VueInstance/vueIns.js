@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
-let bus = new Vue();
+let Bus = new Vue();
 
 export {
-    bus
+    Bus
 }

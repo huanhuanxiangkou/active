@@ -5,9 +5,11 @@
           <el-row>
             <el-col :span="6"><span>南工活动发布 - 拉近距离的牵引力</span></el-col>
             <el-col :span="18" class="tr">
-                {{username}}
-              <router-link to="/" class="login-ho">你好，请登录</router-link> 
-              <router-link to="/register" class="login-ho reg-free">免费注册</router-link>
+              <span v-if="showUsername">{{showUsername}}</span>
+              <span >
+                <router-link to="/" class="login-ho">你好，请登录</router-link> 
+                <router-link to="/register" class="login-ho reg-free">免费注册</router-link>
+              </span>
             </el-col>
           </el-row>
         </div>
@@ -39,36 +41,47 @@
 </template>
 
 <script>
+import { Bus } from "@/VueInstance/vueIns";
 export default {
   data() {
-    return {};
+    return {
+      username:""
+    };
   },
-   computed:{
-      username(){
-          let username = localStorage.getItem('ms_username');
-          console.log('username--------'  ,username);
-          return username;
-          // return username ? username : this.name;
+  mounted() {
+    Bus.$on("setCurrUsername", (msg) => {
+      this.username = msg;
+    });
+  },
+  computed: {
+    showUsername: {
+      set: function(newValue) {
+        this.username = newValue;
+      },
+      get: function() {
+        this.username = localStorage.getItem("ms_username");
+        return this.username;
       }
-  },
-  methods:{
-    publishActive(){
-      this.$router.push({path:"/publish"});
     }
   },
+  methods: {
+    publishActive() {
+      this.$router.push({ path: "/publish" });
+    }
+  }
 };
 </script>
 
 <style>
 @import "../../style/base/base_xss.css";
 
-.reg-free{
+.reg-free {
   color: #d02d48;
 }
-.login-ho{
+.login-ho {
   margin-right: 20px;
 }
-.login-ho:hover{
+.login-ho:hover {
   color: #d48787;
 }
 
@@ -110,7 +123,7 @@ export default {
   background-color: #d48787;
   color: #fff;
 }
-.header_wec{
+.header_wec {
   width: 180px;
   text-align: center;
   color: #cae8ca !important;

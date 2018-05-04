@@ -87,7 +87,7 @@
                 class="quill" 
                 v-model="ruleForm.detail" 
                 ref="myQuillEditor"
-                :options="editorOption"
+            
                 @blur="onEditorBlur($event)"
                 @focus="onEditorFocus($event)"
                 @ready="onEditorReady($event)"
@@ -104,6 +104,7 @@
 </template>
 
 <script>
+    // :options="editorOption"
 import UE from "../component/ue";
 import { userpublish } from "@/api/getInfo";
 import vueQuillEditor from "./edit.vue";

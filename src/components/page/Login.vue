@@ -35,6 +35,7 @@
 <script>
 // <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
 import { userLogin } from "@/api/getInfo";
+import {Bus} from "@/VueInstance/vueIns"
 export default {
   data() {
       var validatePass = (rule, value, callback) => {
@@ -46,7 +47,7 @@ export default {
         };
     return {
       ruleForm:{
-         username: '郭红环',
+         username: '',
          password: '',
          role:2,
       }  ,
@@ -70,8 +71,7 @@ export default {
           console.log(res.data.code)
           if (res.data.code===200 ){
                localStorage.setItem('ms_username',this.ruleForm.username);
-                let username = localStorage.getItem('ms_username');
-               console.log('username', username);
+                Bus.$emit('setCurrUsername',this.ruleForm.username);
                 this.$router.push({path:"/index"});
           }
           else{

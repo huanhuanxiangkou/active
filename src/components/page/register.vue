@@ -65,17 +65,17 @@ import {userRegister} from '@/api/getInfo'
           checkPass: [
             {required: true, validator: validatePass2, trigger: 'blur' }
           ],
-
         }
       };
     },
+
     methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             userRegister(this.ruleForm).then( res=> {
               console.log(res);
-               this.$router.push({path:"/login"});
+               this.$router.push({path:"/"});
             }).catch();
           } else {
             console.log('error submit!!');
