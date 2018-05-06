@@ -7,7 +7,7 @@
             <el-col :span="18" class="tr">
               <span v-if="showUsername">{{showUsername}}</span>
               <span >
-                <router-link to="/" class="login-ho">你好，请登录</router-link> 
+                <router-link to="/login" class="login-ho">你好，请登录</router-link> 
                 <router-link to="/register" class="login-ho reg-free">免费注册</router-link>
               </span>
             </el-col>
