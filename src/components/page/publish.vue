@@ -217,7 +217,7 @@ export default {
     submitForm(formName) {
       // let content = this.getUEContent();
       // this.ruleForm.detail = content;
-      // console.log(this.ruleForm);
+      console.log(this.ruleForm);
       this.$refs[formName].validate(valid => {
         if (valid) {
           userpublish(this.ruleForm)
