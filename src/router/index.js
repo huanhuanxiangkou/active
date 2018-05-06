@@ -28,60 +28,83 @@ const publish = r => require.ensure([], () => r(require('@/components/page/publi
 
 const person = r => require.ensure([], () => r(require('@/components/page/mine/personmessage')), 'personmessage');
 
-export default new Router({
-  routes: [
-    {
-      path: '/special/list',
-      name: 'list',
-      component: specialList
-    },
-    {
-      path: '',
-      name: '',
-      component: home,
-      children: [
-        {
-          path: '/',
-          name: 'login',
-          component: login
-        }, {
-          path: '/register',
-          name: 'register',
-          component: register
-        }, {
-          path: '/index',
-          name: 'index',
-          component: index
-        }, {
-          path: '/special',
-          name: 'special',
-          component: special
-        }, {
-          path: '/myview',
-          name: 'myview',
-          component: myview
-        }, {
-          path: '/detail',
-          name: 'detail',
-          component: detail
-        }, {
-          path: '/life',
-          name: 'life',
-          component: life
-        }, {
-          path: '/allActive',
-          name: ' allactive',
-          component: allActive
-        },{
-          path: '/publish',
-          name: 'publish',
-          component: publish
-        },{
-          path: '/person',
-          name: 'person',
-          component: person
-        }
-      ]
-    },    
-  ]
+const routes =[
+  {
+    path: '/special/list',
+    name: 'list',
+    component: specialList
+  },
+  {
+    path: '',
+    name: '',
+    component: home,
+    children: [
+      {
+        path: '/login',
+        name: 'login',
+        component: login
+      }, {
+        path: '/register',
+        name: 'register',
+        component: register
+      }, {
+        path: '/',
+        name: 'index',
+        component: index
+      }, {
+        path: '/special',
+        name: 'special',
+        component: special
+      }, {
+        path: '/myview',
+        name: 'myview',
+        component: myview
+      }, {
+        path: '/detail',
+        name: 'detail',
+        component: detail
+      }, {
+        path: '/life',
+        name: 'life',
+        component: life
+      }, {
+        path: '/allActive',
+        name: ' allactive',
+        component: allActive
+      },{
+        path: '/publish',
+        name: 'publish',
+        meta:{
+          requiresAuth:true,
+        },
+        component: publish
+      },{
+        path: '/person',
+        name: 'person',
+        component: person
+      }
+    ]
+  },    
+];
+
+const router = new Router({
+  routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    let loginStatus = localStorage.getItem("ms_username");
+    if (!loginStatus) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // 确保一定要调用 next()
+  }
 })
+
+export default router;

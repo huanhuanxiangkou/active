@@ -4,7 +4,18 @@
        <div class="cl mgb_20" style="position: relative;">
          <div class="y">
            <div class="list">
-              <article class="article cl">
+              <article class="article cl" v-for="(active,index) in actives" :key="index">
+                    <a href="http://sh.huodongwang.com/article-90651-1.html" class="img" target="_blank" :style="{backgroundImage: 'url(' + active.photoUrl+ ')'}"></a>
+                    <div class="info">
+                        <h2><a href="http://sh.huodongwang.com/article-90651-1.html" target="_blank" :title="active.name">{{active.name}}</a></h2>
+                        <p class="avatar"><a href="http://www.huodongwang.com/space-uid-17248.html"><img :src="active.photoUrl"> {}</a></p>
+                        <p>{{active.dateStart}}</p>
+                        <p class="pdr_140">{{active.address}}</p>
+                        <a href="
+                        " class="cm-btn cm_bg_1 art-btn" target="_blank">立即报名</a>
+                    </div>
+              </article>
+              <!-- <article class="article cl">
                     <a href="http://sh.huodongwang.com/article-90651-1.html" class="img" target="_blank" style="background-image:url(../../assets/pipa.jpg);"></a>
                     <div class="info">
                         <h2><a href="http://sh.huodongwang.com/article-90651-1.html" target="_blank" title="2019年上海春季五金展_中国国际五金博览会">2019年上海春季五金展_中国国际五金博览会</a></h2>
@@ -13,17 +24,7 @@
                         <p class="pdr_140">地点：上海青浦区崧泽大道333号国家会展中心（上海-虹桥）</p>
                         <a href="http://sh.huodongwang.com/article-90651-1.html" class="cm-btn cm_bg_1 art-btn" target="_blank">立即报名</a>
                     </div>
-              </article>
-              <article class="article cl">
-                    <a href="http://sh.huodongwang.com/article-90651-1.html" class="img" target="_blank" style="background-image:url(../../assets/pipa.jpg);"></a>
-                    <div class="info">
-                        <h2><a href="http://sh.huodongwang.com/article-90651-1.html" target="_blank" title="2019年上海春季五金展_中国国际五金博览会">2019年上海春季五金展_中国国际五金博览会</a></h2>
-                        <p class="avatar"><a href="http://www.huodongwang.com/space-uid-17248.html"><img src="http://www.huodongwang.com/uc/avatar.php?uid=17248&amp;size=small"> 胡镔</a></p>
-                        <p>时间：2019-03-29 00:00</p>
-                        <p class="pdr_140">地点：上海青浦区崧泽大道333号国家会展中心（上海-虹桥）</p>
-                        <a href="http://sh.huodongwang.com/article-90651-1.html" class="cm-btn cm_bg_1 art-btn" target="_blank">立即报名</a>
-                    </div>
-              </article>
+              </article> -->
            </div>
          </div>
        </div>
@@ -31,11 +32,15 @@
   <!-- </div> -->
 </template>
 <script>
+import {} from "@/api/getInfo"
 export default {
   data(){
     return{
 
     }
+  },
+  mounted () {
+      
   }
 }
 </script>

@@ -88,7 +88,6 @@
                 class="quill" 
                 v-model="ruleForm.detail" 
                 ref="myQuillEditor"
-            
                 @blur="onEditorBlur($event)"
                 @focus="onEditorFocus($event)"
                 @ready="onEditorReady($event)"
@@ -215,9 +214,6 @@ export default {
       }
     },
     submitForm(formName) {
-      // let content = this.getUEContent();
-      // this.ruleForm.detail = content;
-      // console.log(this.ruleForm);
       this.$refs[formName].validate(valid => {
         if (valid) {
           userpublish(this.ruleForm)

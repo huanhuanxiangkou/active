@@ -67,12 +67,12 @@ export default {
     login() {
       userLogin(this.ruleForm.password,this.ruleForm.username,this.ruleForm.role )
         .then(res => {
-          console.log('res========',res)
-          console.log(res.data.code)
+          // console.log('res========',res)
+          // console.log(res.data.code)
           if (res.data.code===200 ){
                localStorage.setItem('ms_username',this.ruleForm.username);
                 Bus.$emit('setCurrUsername',this.ruleForm.username);
-                this.$router.push({path:"/index"});
+                this.$router.push({path:"/"});
           }
           else{
             alert('请输入正确的用户名或密码');
