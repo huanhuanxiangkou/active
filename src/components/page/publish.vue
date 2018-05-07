@@ -14,19 +14,19 @@
                <span>开始时间：</span>
                 <el-date-picker
                   v-model="ruleForm.dateStart"
-                  type="date"
-                  placeholder="选择日期"
-                  format="yyyy 年 MM 月 dd 日"
-                  value-format="yyyy-MM-dd">
+                  type="datetime"
+                  placeholder="选择日期时间"
+                  value-format="yyyy-mm-dd hh:mi:ss"
+                  >
                 </el-date-picker>
                  <div class="demonstration">值：{{ ruleForm.dateEnd }}</div>
                  <span>结束日期：</span>
                 <el-date-picker
                   v-model="ruleForm.dateEnd"
-                  type="date"
-                  placeholder="选择日期"
-                  format="yyyy 年 MM 月 dd 日"
-                  value-format="yyyy-MM-dd">
+                  type="datetime"
+                  placeholder="选择日期时间"
+                  value-format="yyyy-mm-dd hh:mi:ss"
+                  >
                 </el-date-picker>
           </el-form-item>
           <el-form-item label="上传图片" required>
@@ -165,6 +165,7 @@ export default {
         resource: "",
         detail: "",
         count: 50,
+        user_id:"",
         list: ["迎新晚会", "英语演讲"],
         cities: cityOptions
       },
@@ -216,6 +217,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
+          this.ruleForm.user_id=parseInt(localStorage.getItem("ms_userid"));
           userpublish(this.ruleForm)
             .then(res => {
               console.log(res);

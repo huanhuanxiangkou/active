@@ -5,12 +5,12 @@
          <div class="y">
            <div class="list">
               <article class="article cl" v-for="(active,index) in actives" :key="index">
-                    <a href="http://sh.huodongwang.com/article-90651-1.html" class="img" target="_blank" :style="{backgroundImage: 'url(' + active.photoUrl+ ')'}"></a>
+                    <a href="http://sh.huodongwang.com/article-90651-1.html" class="img" target="_blank" ><img :src="active.activity.photoUrl"></a>
                     <div class="info">
-                        <h2><a href="http://sh.huodongwang.com/article-90651-1.html" target="_blank" :title="active.name">{{active.name}}</a></h2>
-                        <p class="avatar"><a href="http://www.huodongwang.com/space-uid-17248.html"><img :src="active.photoUrl"> {}</a></p>
-                        <p>{{active.dateStart}}</p>
-                        <p class="pdr_140">{{active.address}}</p>
+                        <h2><a href="http://sh.huodongwang.com/article-90651-1.html" target="_blank" :title="active.activity.name">{{active.activity.name}}</a></h2>
+                        <p class="avatar"><a href="http://www.huodongwang.com/space-uid-17248.html"><img :src="active.activity.photoUrl"></a></p>
+                        <p>{{active.activity.dateStart}}</p>
+                        <p class="pdr_140">{{active.activity.address}}</p>
                         <a href="
                         " class="cm-btn cm_bg_1 art-btn" target="_blank">立即报名</a>
                     </div>
@@ -32,15 +32,24 @@
   <!-- </div> -->
 </template>
 <script>
-import {} from "@/api/getInfo"
+import {getAllActivitys} from "@/api/getInfo"
 export default {
   data(){
     return{
-
+        actives:[]
     }
   },
-  mounted () {
-      
+  computed: {
+      username(){
+          return localStorage.getItem("ms_username");
+      }  
+  },
+  mounted() {
+      getAllActivitys().then(res=>{
+          if(res.data.code===200){
+              this.actives=res.data.data;
+          }
+      }).catch();
   }
 }
 </script>

@@ -65,13 +65,14 @@ export default {
   },
   methods: {
     login() {
-      userLogin(this.ruleForm.password,this.ruleForm.username,this.ruleForm.role )
+      userLogin(this.ruleForm.password,this.ruleForm.username,this.ruleForm.role  )
         .then(res => {
           // console.log('res========',res)
-          // console.log(res.data.code)
+          console.log(res.data)
           if (res.data.code===200 ){
-               localStorage.setItem('ms_username',this.ruleForm.username);
-                Bus.$emit('setCurrUsername',this.ruleForm.username);
+               localStorage.setItem('ms_username',res.data.data.name);
+               localStorage.setItem('ms_userid',res.data.data.id);
+                Bus.$emit('setCurrUsername',res.data.data.name);
                 this.$router.push({path:"/"});
           }
           else{
