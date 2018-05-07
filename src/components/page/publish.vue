@@ -215,6 +215,12 @@ export default {
       }
     },
     submitForm(formName) {
+<<<<<<< HEAD
+      // let content = this.getUEContent();
+      // this.ruleForm.detail = content;
+      console.log(this.ruleForm);
+=======
+>>>>>>> a9ac29767c1e87d207dbe4fac2a434b303801a86
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.ruleForm.user_id=parseInt(localStorage.getItem("ms_userid"));
