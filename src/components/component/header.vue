@@ -4,8 +4,14 @@
         <div class="w1080">
           <el-row>
             <el-col :span="6"><span>南工活动发布 - 拉近距离的牵引力</span></el-col>
-            <el-col :span="18" class="tr">
-              <span v-if="showUsername">{{showUsername}}</span>
+              <!-- <el-dropdown trigger="click" @command="handleCommand">
+                <span class="el-dropdown-link">
+               </el-dropdown> -->
+
+            <el-col :span="18" class="tr" @command="handleCommand" >
+              <span v-if="showUsername">{{showUsername}}
+                <button   @click="handleCommand()">退出</button>
+              </span>
               <span v-else>
                 <router-link to="/login" class="login-ho">你好，请登录</router-link> 
                 <router-link to="/register" class="login-ho reg-free">免费注册</router-link>
@@ -67,7 +73,26 @@ export default {
   methods: {
     publishActive() {
       this.$router.push({ path: "/publish" });
-    }
+    },
+       handleCommand(command) { //  var that = this.computed     
+        // this.$confirm('此操作将退出登录, 是否继续?', '提示', {
+        //   confirmButtonText: '确定',
+        //   cancelButtonText: '取消',
+        //   type: 'warning',
+        //   center: true,
+        //   callback: action => {
+        //     this.$message({
+        //       type: 'info',
+        //       message: `action: ${ action }`,
+        //     });
+        //   }
+        // })
+          alert('哈哈哈');
+          localStorage.removeItem('ms_username')
+          this.$router.push('/login');
+    
+          alert('你已经清除了');
+            }
   }
 };
 </script>
