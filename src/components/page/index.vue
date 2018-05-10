@@ -19,12 +19,12 @@
                  <el-col :span="6"  v-for="recommend in recommends" :key="recommend.id">
                     <div class="cm_box_item">
                         <a href="http://www.baidu.com" class="img">
-                        <img src="../../assets/logo.png" alt="[4.7周六]欢 乐 狼 人 杀—蒙面涛涛复活指刀|友行友派">
+                        <img :src="recommend.photoUrl" :alt="recommend.name">
                             <span>立即<br>报名</span>
                         </a>
                         <div class="info">
                             <h3><a href="http://bj.huodongwang.com/article-91114-1.html" title="[4.7周六]欢 乐 狼 人 杀—蒙面涛涛复活指刀|友行友派" target="_blank">[4.7周六]欢 乐 狼 人 杀—蒙面涛涛复活指刀|友行友派</a></h3>
-                            <p>活动时间：2018-04-07 13:00</p>
+                            <p>活动时间：</p>
                             <p>活动地点：北京交通大学</p>
                         </div>
                     </div>

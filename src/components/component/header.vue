@@ -51,11 +51,11 @@ import { Bus } from "@/VueInstance/vueIns";
 export default {
   data() {
     return {
-      username:""
+      username: ""
     };
   },
   mounted() {
-    Bus.$on("setCurrUsername", (msg) => {
+    Bus.$on("setCurrUsername", msg => {
       this.username = msg;
     });
   },
@@ -74,25 +74,23 @@ export default {
     publishActive() {
       this.$router.push({ path: "/publish" });
     },
-       handleCommand(command) { //  var that = this.computed     
-        // this.$confirm('此操作将退出登录, 是否继续?', '提示', {
-        //   confirmButtonText: '确定',
-        //   cancelButtonText: '取消',
-        //   type: 'warning',
-        //   center: true,
-        //   callback: action => {
-        //     this.$message({
-        //       type: 'info',
-        //       message: `action: ${ action }`,
-        //     });
-        //   }
-        // })
-          // alert('哈哈哈');
-          localStorage.clear();
-          Bus.$emit("setCurrUsername",null);
-          this.$router.push('/login');
-          // alert('你已经清除了');
-            }
+    handleCommand(command) {
+      var that = this.computed;
+      this.$confirm("此操作将退出登录, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        center: true,
+        callback: action => {
+          if (action == "confirm") {
+            localStorage.clear();
+            Bus.$emit("setCurrUsername", null);
+            this.$router.push("/login");
+          } else {
+          }
+        }
+      });
+    }
   }
 };
 </script>
