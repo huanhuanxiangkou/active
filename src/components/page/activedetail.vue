@@ -26,8 +26,8 @@
                     </a>
              </p>
              <div class="func  clearfloat">
-                <button id="btn_register_main" class="btn btn-sign-up1" @click="signUp()">我要报名</button>
-                <button class="btn btn-like" name="eventFollowBtn" @click="collection()">收藏 <span class="num"><em id="shoucangnums">2</em></span></button>
+                <button id="btn_register_main" class="btn btn-sign-up1" @click="signUp()">{{isSignUp}}</button>
+                <button class="btn btn-like" name="eventFollowBtn" @click="collection()">{{isCollection}} <span class="num"><em id="shoucangnums"></em></span></button>
             </div>
         </div>
       </div>   
@@ -42,7 +42,7 @@
                       <input id="piaozhong_price" type="hidden" value="0">
                       <div id="home_register_group_base">
                       <ul name="event_tickets_thumbs" class=" clearfloat cl piao-list">
-                              <li class="pzo cur" title="免费票 - 报名期：活动开始前 " data-value="f-0" onclick="selectEventTicket('91281',this,'f-24734','free');">
+                              <li class="pzo cur" title="免费票 - 报名期：活动开始前 " data-value="f-0">
                                   <div id="f-24734" class="thumbnail_cn et_selected">
                                    <div><i class=" el-icon-question"></i> 免费</div>
                                    <div class="caption">免费票[剩:{{activity.activity.count}}]</div>
@@ -54,6 +54,9 @@
                               <select id="event_ticket_order_number_sel" onchange="event_ticket_order_number()" class="input form-control"><option value="1">1 张</option></select>
                           </div>
                           <button id="reg_event_btn_enabled" href="javascript:;" class="btn btn-primary" onclick="startRegisterEvent();" style="display:none">我要参加</button>
+                          <div v-html="activity.activity.detail">
+                            <!-- {{activity.activity.detail}} -->
+                          </div>
                     </div>
                 </div>
              </div>                
@@ -74,17 +77,19 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click="showUserDialog = false">取 消</el-button>
-            <el-button type="primary" @click="showUserDialog = false">确 定</el-button>
+            <el-button @click="cancel()">取 消</el-button>
+            <el-button type="primary" @click="confirmSign()">确 定</el-button>
         </div>
     </el-dialog>
 </div>
 </template>
 <script>
-import { findOne, activitySignup } from "@/api/getInfo";
+import { findOne, activitySignup, collectionActivity } from "@/api/getInfo";
 export default {
   data() {
     return {
+      isSignUp: "我要报名",
+      isCollection:"收藏",
       activity: {
         activity: {},
         user: {},
@@ -112,18 +117,55 @@ export default {
     signUp() {
       this.userDialog = true;
     },
-    collection() {},
-    showUserDialog() {
-      activitySignup({
+    collection() {
+      collectionActivity({
         user_id: this.activity.user.id,
         acticity_id: this.activity.activity.id
       })
-        .then(result => {
-          if (result.data.code === 200) {
-            console.log(result);
+        .then(res => {
+          if(res.data.code==200){
+            this.isCollection="已收藏";
+            this.$message({
+                    type: "success",
+                    message: "收藏成功!"
+                  });
           }
         })
-        .catch(err => {});
+        .catch();
+    },
+    cancel() {
+      this.userDialog = false;
+    },
+    confirmSign() {
+      this.$confirm("是否确定报名此活动？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        center: true
+      })
+        .then(action => {
+          if (action == "confirm") {
+            activitySignup({
+              user_id: this.activity.user.id,
+              acticity_id: this.activity.activity.id,
+              phone_number: this.user.phone,
+              wechat: this.user.line,
+              name: this.user.name
+            })
+              .then(result => {
+                if (result.data.code === 200) {
+                  this.userDialog = false;
+                  this.isSignUp = "已报名";
+                  this.$message({
+                    type: "success",
+                    message: "报名成功!"
+                  });
+                }
+              })
+              .catch(err => {});
+          }
+        })
+        .catch(() => {});
     }
   }
 };

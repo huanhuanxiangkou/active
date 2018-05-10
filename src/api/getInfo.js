@@ -16,12 +16,10 @@ export const userRegister = data => baseAxios.post('/user/operation', data)
  * admin
  */
 export const adminUserRegister = data => baseAxios.post('/user/admin/operation', data)
-
-
 /**
  * 查询单个用户
  */
-export const getUserById = id => baseAxios.get('/user/findOne/'+id)
+export const getUserById = id => baseAxios.get('/user/findOne/' + id)
 /**
  * 活动发布
  */
@@ -30,15 +28,15 @@ export const userpublish = data => baseAxios.post('/activity/operation', data)
 /**
  * 获取活动列表
  */
-export const getAllActivitys = data=> baseAxios.get('/activity/getActivitys',data)
+export const getAllActivitys = data => baseAxios.get('/activity/getActivitys', data)
 
 /**
- * 
+ * 对对对
  */
 export const editStuatus = (id, status) => baseAxios.get('/activity/editStuatus/' + id + '/' + status)
 
 /**
- * 
+ * 对对对
  */
 export const editHold = (id) => baseAxios.get('/activity/editHold/' + id + '/' + status)
 
@@ -95,9 +93,8 @@ export const activitySignup = (data) => baseAxios.post('/signup/operation', data
 /**
  * 查看用户报名的活动
  */
-export const getSignupActivitys = (userID,activityId) => baseAxios.get('/signup/findByUser', {
+export const getSignupActivitys = (userID) => baseAxios.get('/signup/findByUser', {
   params: {
-    user_id: userID,
-    activity_id: activityId
+    user_id: userID
   }
 })

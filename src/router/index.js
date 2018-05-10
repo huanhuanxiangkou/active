@@ -18,17 +18,19 @@ const specialList = r => require.ensure([], () => r(require('@/components/page/s
 
 const myview = r => require.ensure([], () => r(require('@/components/page/mine/myview')), 'myview');
 
-const detail = r => require.ensure([], () => r(require('@/components/page/activedetail')), 'activedetail') ;
+const detail = r => require.ensure([], () => r(require('@/components/page/activedetail')), 'activedetail');
 
 const life = r => require.ensure([], () => r(require('@/components/page/life')), 'life');
 
-const allActive = r => require.ensure([],()=>r(require('@/components/page/allactive')),'allactive');
+const allActive = r => require.ensure([], () => r(require('@/components/page/allactive')), 'allactive');
 
 const publish = r => require.ensure([], () => r(require('@/components/page/publish')), 'publish');
 
 const person = r => require.ensure([], () => r(require('@/components/page/mine/personmessage')), 'personmessage');
 
-const routes =[
+const myactivity = r => require.ensure([], () => r(require('@/components/page/mine/myactivity')), 'myactivity');
+
+const routes = [
   {
     path: '/special/list',
     name: 'list',
@@ -58,7 +60,14 @@ const routes =[
       }, {
         path: '/myview',
         name: 'myview',
-        component: myview
+        component: myview,
+        children: [
+          {
+            path: '/myactivity',
+            name: 'myactivity',
+            component: myactivity
+          }
+        ]
       }, {
         path: '/detail',
         name: 'detail',
@@ -71,20 +80,20 @@ const routes =[
         path: '/allActive',
         name: ' allactive',
         component: allActive
-      },{
+      }, {
         path: '/publish',
         name: 'publish',
-        meta:{
-          requiresAuth:true,
+        meta: {
+          requiresAuth: true,
         },
         component: publish
-      },{
+      }, {
         path: '/person',
         name: 'person',
         component: person
       }
     ]
-  },    
+  },
 ];
 
 const router = new Router({

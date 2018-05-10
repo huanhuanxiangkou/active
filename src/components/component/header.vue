@@ -9,7 +9,8 @@
                </el-dropdown> -->
 
             <el-col :span="18" class="tr" @command="handleCommand" >
-              <span v-if="showUsername">{{showUsername}}
+              <span v-if="showUsername">
+                <span @click="userDeatil()" class="ms-username">{{showUsername}}</span>
                 <button   @click="handleCommand()">退出</button>
               </span>
               <span v-else>
@@ -90,6 +91,15 @@ export default {
           }
         }
       });
+    },
+    userDeatil(){
+      let userId=parseInt(localStorage.getItem("ms_userid"));
+      this.$router.push({
+        path:"/myview",
+        query:{
+          userId:userId
+        }
+      });
     }
   }
 };
@@ -152,5 +162,8 @@ export default {
   color: #cae8ca !important;
   cursor: default !important;
   opacity: 1 !important;
+}
+.ms-username{
+  cursor: pointer;
 }
 </style>
