@@ -50,7 +50,7 @@ export const findOne = (id) => baseAxios.get('/activity/findOne/' + id)
 /**
  * 根据关键字查询活动
  */
-export const findActivityByKey = (id) => baseAxios.get('/activity/findTypeByName/' + name)
+export const findActivityByKey = (name) => baseAxios.get('/activity/findTypeByName/' + name)
 /**
  * 收藏活动
  */

@@ -36,10 +36,10 @@
             <el-menu   mode="horizontal" router>
               <el-menu-item index disabled class="header_wec">欢迎来到活动网</el-menu-item>
               <el-menu-item index="/">首页</el-menu-item>
-              <el-menu-item index="allActive">校办</el-menu-item>
-              <el-menu-item index="allActive">系办</el-menu-item>
-              <el-menu-item index="allActive">团体</el-menu-item>
-              <el-menu-item index="allActive">个人</el-menu-item>
+              <el-menu-item index="school" :route="{path:'/allActive',query:{type:'school'}}">校办</el-menu-item>
+              <el-menu-item index="department" :route="{path:'/allActive',query:{type:'department'}}">系办</el-menu-item>
+              <el-menu-item index="group" :route="{path:'/allActive',query:{type:'group'}}">团体</el-menu-item>
+              <el-menu-item index="personal" :route="{path:'/allActive',query:{type:'personal'}}">个人</el-menu-item>
             </el-menu>
             </el-row>
           </div>

@@ -18,14 +18,14 @@
               <el-row>
                  <el-col :span="6"  v-for="recommend in recommends" :key="recommend.id">
                     <div class="cm_box_item">
-                        <a href="http://www.baidu.com" class="img">
-                        <img :src="recommend.photoUrl" :alt="recommend.name">
+                        <a href="javascript:void(0);" class="img" @click="activeDetail(recommend)">
+                        <img :src="recommend.activity.photoUrl" :alt="recommend.activity.name">
                             <span>立即<br>报名</span>
                         </a>
                         <div class="info">
-                            <h3><a href="http://bj.huodongwang.com/article-91114-1.html" title="[4.7周六]欢 乐 狼 人 杀—蒙面涛涛复活指刀|友行友派" target="_blank">[4.7周六]欢 乐 狼 人 杀—蒙面涛涛复活指刀|友行友派</a></h3>
-                            <p>活动时间：</p>
-                            <p>活动地点：北京交通大学</p>
+                            <h3><a href="javascript:void(0);" :title="recommend.activity.name" target="_blank" @click="activeDetail(recommend)">{{recommend.activity.name}}</a></h3>
+                            <p>活动时间：{{recommend.activity.dateStart}}</p>
+                            <p>活动地点：{{recommend.activity.address}}</p>
                         </div>
                     </div>
                 </el-col>
@@ -56,25 +56,25 @@
       <div class="cm-life boxbg pd_50_0 clearfloat">
           <div class="w1080">
               <h2>
-                <span>生活 · Life</span>
+                <span>学习 · Life</span>
                 <router-link to="/life"><a href="#" class="y more" target="_blank">更多</a></router-link>
               </h2>
               <div class="clearfloat">
               <div class="cm-life-big">
-                  <img src="../../assets/life1.jpg" alt="生活">
+                  <img src="../../assets/life1.jpg" alt="学习">
               </div>
               <div class="z mgt-30" style="width:748px">
-                  <div class="z cm-life-small" v-for="item in 6" :key="item">
+                  <div class="z cm-life-small" v-for="(learnActivitie,index) in learnActivitiecs" :key="index">
                     <div class="cm-life-small-div">
-                        <a href="http://bj.huodongwang.com/article-91281-1.html" target="_blank" class="img">
-                        <img src="../../assets/logo.png" alt="北京2018清明假期相亲大会，2018年清明假期北京相亲会，80 90后本硕博单身，每晚百人，来了就有机会脱单哦！快报名吧！">
+                        <a href="javascript:void(0);" target="_blank" class="img" @click="activeDetail(learnActivitie)">
+                        <img :src="learnActivitie.activity.photoUrl" :alt="learnActivitie.activity.name">
                         </a>
                         <div class="info">
-                            <h3><a href="http://bj.huodongwang.com/article-91281-1.html" target="_blank" title="北京2018清明假期相亲大会，2018年清明假期北京相亲会，80 90后本硕博单身，每晚百人，来了就有机会脱单哦！快报名吧！">北京2018清明假期相亲大会，2018年清明假期北京相亲会，80 90后本硕博单身，每晚百人，来了就有机会脱单哦！快报名吧！</a></h3>
-                            <p>活动时间：2018-04-06 18:30</p>
-                            <p>活动地点：</p>
-                            <p><a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=13979&amp;do=profile&amp;op=huodong&amp;type=post" target="_blank" class="avatar" title="美好的爱情">
-                            <img src="http://www.huodongwang.com/uc/avatar.php?uid=13979&amp;size=small"><span>美好的爱情</span></a></p>
+                            <h3><a href="javascript:void(0);"  target="_blank" :title="learnActivitie.activity.name" @click="activeDetail(learnActivitie)">{{learnActivitie.activity.name}}</a></h3>
+                            <p>活动时间：{{learnActivitie.activity.dateStart}}</p>
+                            <p>活动地点：{{learnActivitie.activity.address}}</p>
+                            <p><a href="javascript:void(0);" class="avatar" :title="learnActivitie.user.name">
+                            <img :src="learnActivitie.activity.photoUrl"><span>{{learnActivitie.user.name}}</span></a></p>
                         </div>
                     </div>
                 </div>
@@ -93,330 +93,354 @@
         </div>
         <div class="cm_fabuhuodong">
             <h3>迫不及待想去做的事</h3>
-            <a href="huodong.php?mod=post" class="cm-btn2">+发布活动</a> <a href="#index" class="cm-btn2 back2top2" @click="scrollToTop">参与活动</a>
+            <router-link to="/publish"><a href="#" class="cm-btn2">+发布活动</a></router-link> <a href="#" class="cm-btn2 back2top2" @click="scrollToTop">参与活动</a>
         </div>
   </div>
 </template>
 <script>
-import {getAllActivitys} from "@/api/getInfo"
+import { getAllActivitys } from "@/api/getInfo";
 export default {
   data() {
     return {
-        imagePaths:[
-            require("../../assets/lunbotu0.jpg"),
-            require("../../assets/lunbotu1.jpg"),
-            require("../../assets/lunbotu2.jpg"),
-            require("../../assets/lunbotu3.jpg"),
-        ],
-        recommends:[],
-    }
+      imagePaths: [
+        require("../../assets/lunbotu0.jpg"),
+        require("../../assets/lunbotu1.jpg"),
+        require("../../assets/lunbotu2.jpg"),
+        require("../../assets/lunbotu3.jpg")
+      ],
+      recommends: [],
+      learnActivities:[]
+    };
   },
-  mounted () {
-      getAllActivitys().then(res=>{
-          this.recommends=res.data.data.slice(-4);
-      }).catch();
+  computed:{
+      learnActivitiecs(){
+          return this.learnActivities.splice(0,6);
+      }
+  },
+  mounted() {
+    getAllActivitys()
+      .then(res => {
+        if (res.data.code == 200) {
+          let activitys = res.data.data;
+          let len = activitys.length;
+          this.recommends.push(activitys[len - 1]);
+          this.recommends.push(activitys[len - 2]);
+          this.recommends.push(activitys[len - 3]);
+          this.recommends.push(activitys[len - 4]);
+
+          this.learnActivities=activitys.filter(item=>{
+              return item.list.indexOf("学习活动") != -1;
+          });
+        }
+      })
+      .catch();
   },
   methods: {
-      scrollToTop(){
-          document.body.scrollTop = 0;
-      }
+    scrollToTop() {
+      document.body.scrollTop = 0;
+    },
+    activeDetail(recommend) {
+      this.$router.push({
+        name: "detail",
+        query: {
+          activityId: recommend.activity.id
+        }
+      });
+    }
   }
 };
 </script>
 <style>
-@import "../../style/base/base_xss.css";  
-.index .lunbo1 .el-carousel__container{
-    height: 360px;
+@import "../../style/base/base_xss.css";
+.index .lunbo1 .el-carousel__container {
+  height: 360px;
 }
-.index .lunbo12 .el-carousel__container{
-    height: 275px;
+.index .lunbo12 .el-carousel__container {
+  height: 275px;
 }
-.index .boxbg{
-    background-color: #f0f0f0;
+.index .boxbg {
+  background-color: #f0f0f0;
 }
 .index h2 {
-    background: url(../../assets/xian.png) repeat-x center;
-    font-size: 26px;
-    font-weight: 400;
-    display: block;
-    margin-bottom: 20px;
+  background: url(../../assets/xian.png) repeat-x center;
+  font-size: 26px;
+  font-weight: 400;
+  display: block;
+  margin-bottom: 20px;
 }
 .index h2 span {
-    background: #f0f0f0;
-    border-left: 3px solid #d02d48;
-    padding: 0 20px;
-    font-size: 26px;
-    font-weight: 400;
+  background: #f0f0f0;
+  border-left: 3px solid #d02d48;
+  padding: 0 20px;
+  font-size: 26px;
+  font-weight: 400;
 }
-.cm_box_item{
-    border: 1px solid #eee;
-    background: #fff;
+.cm_box_item {
+  border: 1px solid #eee;
+  background: #fff;
 }
 
-.index .el-col-6{
-    padding-left: 15px;
-    padding-right: 15px;
+.index .el-col-6 {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .cm_box_item .img {
-    display: block;
-    overflow: hidden;
-    position: relative;
-    height: 190px;
-    text-align: center;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  height: 190px;
+  text-align: center;
 }
 .cm_box_item .img img {
-    display: inline-block;
-    max-height: 158px;
+  display: inline-block;
+  max-height: 158px;
 }
 
 .cm_box_item .img span:hover {
-    -moz-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
 }
-.cm_box_item .img span{
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    background: #fff;
-    background: rgba(0,0,0,.5);
-    border-radius: 50%;
-    margin-left: -33px;
-    width: 66px;
-    height: 52px;
-    text-align: center;
-    padding: 14px 0 0 0;
-    color: #fff;
-    font-size: 14px;
-    -moz-transition: all .3s ease-out;
-    -webkit-transition: all .3s ease-out;
-    transition: all .3s ease-out;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000, endColorstr=#7f000000);
-    zoom: 1;
+.cm_box_item .img span {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  background: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  margin-left: -33px;
+  width: 66px;
+  height: 52px;
+  text-align: center;
+  padding: 14px 0 0 0;
+  color: #fff;
+  font-size: 14px;
+  -moz-transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  filter: progid:DXImageTransform.Microsoft.gradient(
+      startColorstr=#7f000000,
+      endColorstr=#7f000000
+    );
+  zoom: 1;
 }
 .cm_box_item .info {
-    padding: 10px;
+  padding: 10px;
 }
- .cm_box_item h3 {
-    height: 43px;
-    overflow: hidden;
-    margin-bottom: 10px;
+.cm_box_item h3 {
+  height: 43px;
+  overflow: hidden;
+  margin-bottom: 10px;
 }
 .cm_box_item .info p {
-    color: #666;
+  color: #666;
 }
-.cm_box_item .info p{
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
+.cm_box_item .info p {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
 }
-
-.cm_box_item .avatar{
-    margin-top: 10px;
-    display: block;
-    text-align: center;
-    border-top: 1px solid #eee;
-    padding-top: 10px;
+.cm_box_item .avatar {
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
 }
-
 .info a {
-    color: #333;
-    text-decoration: none;
-    -webkit-transition: all .3s;
-    transition: all .3s;
+  color: #333;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
-
-.cm-special .bga{
-    background:#fff;
+.cm-special .bga {
+  background: #fff;
 }
 .cm-special .more {
-    font-size: 14px;
-    background: #fff;
-    height: 31px;
-    line-height: 31px;
-    padding-left: 20px;
+  font-size: 14px;
+  background: #fff;
+  height: 31px;
+  line-height: 31px;
+  padding-left: 20px;
 }
-
 .cm-special-a {
-    display: block;
-    border: 1px solid #e8e8e8;
-    height: 273px;
-    right: -1px;
-    position: relative;
+  display: block;
+  border: 1px solid #e8e8e8;
+  height: 273px;
+  right: -1px;
+  position: relative;
 }
-
 .cm-special-a img {
-    display: block;
-    height: 165px;
-    margin: 0 auto;
-}
-
-.cm-special-a h3 {
-    font-size: 18px;
-    font-weight: 400;
-    margin: 10px 0;
-    padding: 0 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  display: block;
+  height: 165px;
+  margin: 0 auto;
 }
 .cm-special-a h3 {
-    font-size: 18px;
-    font-weight: 400;
-    margin: 10px 0;
-    padding: 0 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 10px 0;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-
+.cm-special-a h3 {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 10px 0;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .cm-life .more {
-    font-size: 14px;
-    height: 31px;
-    line-height: 31px;
-    padding-left: 20px;
-    background: #f0f0f0;
+  font-size: 14px;
+  height: 31px;
+  line-height: 31px;
+  padding-left: 20px;
+  background: #f0f0f0;
 }
-
 .cm-life-big {
-    position: relative;
-    border: 1px solid #ddd;
-    float: left;
-    width: 330px;
-    height: 326px;
+  position: relative;
+  border: 1px solid #ddd;
+  float: left;
+  width: 330px;
+  height: 326px;
 }
 .cm-life-big img {
-    border: none;
-    max-width: 100%;
-    height: auto;
+  border: none;
+  max-width: 100%;
+  height: auto;
 }
-
 .cm-life-small {
-    width: 218px;
-    float: left;
-    padding: 30px 0 0 30px;
+  width: 218px;
+  float: left;
+  padding: 30px 0 0 30px;
 }
-
 .cm-life-small div {
-    position: relative;
-    height: 148px;
-    overflow: hidden;
-    border: 1px solid #ddd;
+  position: relative;
+  height: 148px;
+  overflow: hidden;
+  border: 1px solid #ddd;
 }
 .cm-life-small a {
-    color: #333;
-    text-decoration: none;
-    -webkit-transition: all .3s;
-    transition: all .3s;
+  color: #333;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 .cm-life-small .img img {
-    display: block;
+  display: block;
 }
-
 .cm-life-small .info {
-    position: absolute;
-    display: block;
-    left: 0;
-    bottom: 0;
-    background: rgba(255,255,255,.7);
-    width: 100%;
-    padding: 5px;
-    height: 16px;
-    -moz-transition: all .3;
-    -webkit-transition: all .3s;
-    transition: all .3s;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#b2FFFFFF, endColorstr=#b2FFFFFF);
-    zoom: 1;
+  position: absolute;
+  display: block;
+  left: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  width: 100%;
+  padding: 5px;
+  height: 16px;
+  -moz-transition: all 0.3;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  filter: progid:DXImageTransform.Microsoft.gradient(
+      startColorstr=#b2FFFFFF,
+      endColorstr=#b2FFFFFF
+    );
+  zoom: 1;
 }
 .cm-life-small .info h3 {
-    font-size: 14px;
-    display: block;
-    margin-bottom: 5px;
-    overflow: hidden;
-    height: 40px;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 5px;
+  overflow: hidden;
+  height: 40px;
 }
-
 .cm-life-small .info h3 a {
-    color: #222;
+  color: #222;
 }
-
 .cm-life-small .info h3 a {
-    text-decoration: none;
-    -webkit-transition: all .3s;
-    transition: all .3s;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 .cm-life-small .info p {
-    font-size: 13px;
-    margin-bottom: 5px;
+  font-size: 13px;
+  margin-bottom: 5px;
 }
-
- .cm-life-small .info p, .cm_box_item .info p, .cm_box_item_2 .info p, .widget-big a {
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
+.cm-life-small .info p,
+.cm_box_item .info p,
+.cm_box_item_2 .info p,
+.widget-big a {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
 }
 .cm-life-small .avatar {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    width: 80%;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  width: 80%;
 }
 .cm-life-small .info:hover {
-    height: 93.5%;
-    background: rgba(255,255,255,.9);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#e5FFFFFF, endColorstr=#e5FFFFFF);
-    zoom: 1;
+  height: 93.5%;
+  background: rgba(255, 255, 255, 0.9);
+  filter: progid:DXImageTransform.Microsoft.gradient(
+      startColorstr=#e5FFFFFF,
+      endColorstr=#e5FFFFFF
+    );
+  zoom: 1;
 }
 .act-box-about {
-    background: url(../../assets/index-bg.png) 50% 0 no-repeat;
-    padding: 60px 0 30px 0;
-    text-align: center;
+  background: url(../../assets/index-bg.png) 50% 0 no-repeat;
+  padding: 60px 0 30px 0;
+  text-align: center;
 }
 .act-box-about h3 {
-    font-size: 30px;
-    font-weight: 400;
-    margin: 0 0 20px 0;
+  font-size: 30px;
+  font-weight: 400;
+  margin: 0 0 20px 0;
 }
 .act-box-about p {
-    font-size: 14px;
-    margin: 0 0 20px;
+  font-size: 14px;
+  margin: 0 0 20px;
 }
 .cm_fabuhuodong {
-    background: #da9191;
-    color: #fff;
-    text-align: center;
-    padding: 30px 0 27px 0;
+  background: #da9191;
+  color: #fff;
+  text-align: center;
+  padding: 30px 0 27px 0;
 }
 .cm_fabuhuodong h3 {
-    font-size: 30px;
-    margin-bottom: 20px;
-    font-weight: 400;
+  font-size: 30px;
+  margin-bottom: 20px;
+  font-weight: 400;
 }
 .cm_fabuhuodong a {
-    color: #fff;
+  color: #fff;
 }
-
 .cm-btn2 {
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 4px;
-    padding: 10px 25px;
-    border: 1px solid #FFF;
-    color: #FFF;
-    -webkit-transition: all .25s;
-    -moz-transition: all .25s;
-    transition: all .25s;
-    margin: 0 10px;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  padding: 10px 25px;
+  border: 1px solid #fff;
+  color: #fff;
+  -webkit-transition: all 0.25s;
+  -moz-transition: all 0.25s;
+  transition: all 0.25s;
+  margin: 0 10px;
 }
 .cm-btn2:hover {
-    background: #fff;
-    color: #da9191;
-    text-decoration: none;
+  background: #fff;
+  color: #da9191;
+  text-decoration: none;
 }
 </style>

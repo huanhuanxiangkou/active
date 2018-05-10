@@ -3,7 +3,7 @@
     <div id="pt" class="bm cl">
         <div class="z">
             <a href="./" class="nvhm" title="首页">活动网-给生活加点&amp;quot;料&amp;quot;-全球最有活力的中文活动平台</a> <em>›</em>
-            <router-link to="/index">首页</router-link> <em>›</em>生活
+            <router-link to="/">首页</router-link> <em>›</em>生活
         </div>
     </div>
     <div class="zx-hd cl">
