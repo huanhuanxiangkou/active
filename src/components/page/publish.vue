@@ -9,17 +9,18 @@
           <el-form-item label="活动区域" prop="address">
                <el-input v-model="ruleForm.address"></el-input>
           </el-form-item>
-          <el-form-item label="活动时间" required>
-               <div class="demonstration">值：{{ ruleForm.dateStart }}</div>
+          <el-form-item label="活动时间"  required>
+               <!-- <div class="demonstration">值：{{ ruleForm.dateStart }}</div> -->
                <span>开始时间：</span>
                 <el-date-picker
                   v-model="ruleForm.dateStart"
                   type="datetime"
                   placeholder="选择日期时间"
                   value-format="yyyy-mm-dd hh:mi:ss"
+                  prop='dataStart '
                   >
                 </el-date-picker>
-                 <div class="demonstration">值：{{ ruleForm.dateEnd }}</div>
+                 <!-- <div class="demonstration">值：{{ ruleForm.dateEnd }}</div> -->
                  <span>结束日期：</span>
                 <el-date-picker
                   v-model="ruleForm.dateEnd"
@@ -116,7 +117,7 @@ const cityOptions = [
   "团队活动",
   "校办活动",
   "系办活动",
-  "餐厅活动"
+  "学习活动"
 ];
 export default {
   components: { UE },
@@ -220,7 +221,23 @@ export default {
           this.ruleForm.user_id=parseInt(localStorage.getItem("ms_userid"));
           userpublish(this.ruleForm)
             .then(res => {
-              console.log(res);
+                this.$confirm("发布成功?", "提示", {
+                confirmButtonText: "发布",
+                cancelButtonText: "返回首页",
+                type: "warning",
+                center: true,
+                callback: action => {
+                  if (action == "confirm") {
+                    this.resetForm('ruleForm');
+                    // localStorage.clear();
+                    // Bus.$emit("setCurrUsername", null);
+                    
+                  } else {
+                       this.$router.push("/");
+                  }
+                }
+              });
+              // console.log(res);
             })
             .catch();
         } else {
