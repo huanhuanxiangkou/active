@@ -87,11 +87,11 @@ export default {
         //     });
         //   }
         // })
-          alert('哈哈哈');
-          localStorage.removeItem('ms_username')
+          // alert('哈哈哈');
+          localStorage.clear();
+          Bus.$emit("setCurrUsername",null);
           this.$router.push('/login');
-    
-          alert('你已经清除了');
+          // alert('你已经清除了');
             }
   }
 };

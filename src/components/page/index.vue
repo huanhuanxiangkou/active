@@ -16,7 +16,7 @@
           <div class="w1080">
               <h2><span>活动推荐</span></h2>
               <el-row>
-                 <el-col :span="6"  v-for="item in 4" :key="item">
+                 <el-col :span="6"  v-for="recommend in recommends" :key="recommend.id">
                     <div class="cm_box_item">
                         <a href="http://www.baidu.com" class="img">
                         <img src="../../assets/logo.png" alt="[4.7周六]欢 乐 狼 人 杀—蒙面涛涛复活指刀|友行友派">
@@ -98,6 +98,7 @@
   </div>
 </template>
 <script>
+import {getAllActivitys} from "@/api/getInfo"
 export default {
   data() {
     return {
@@ -106,8 +107,14 @@ export default {
             require("../../assets/lunbotu1.jpg"),
             require("../../assets/lunbotu2.jpg"),
             require("../../assets/lunbotu3.jpg"),
-        ]
-    };
+        ],
+        recommends:[],
+    }
+  },
+  mounted () {
+      getAllActivitys().then(res=>{
+          this.recommends=res.data.data.slice(-4);
+      }).catch();
   },
   methods: {
       scrollToTop(){
