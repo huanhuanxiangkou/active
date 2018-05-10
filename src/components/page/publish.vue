@@ -9,17 +9,18 @@
           <el-form-item label="活动区域" prop="address">
                <el-input v-model="ruleForm.address"></el-input>
           </el-form-item>
-          <el-form-item label="活动时间" required>
-               <div class="demonstration">值：{{ ruleForm.dateStart }}</div>
+          <el-form-item label="活动时间"  required>
+               <!-- <div class="demonstration">值：{{ ruleForm.dateStart }}</div> -->
                <span>开始时间：</span>
                 <el-date-picker
                   v-model="ruleForm.dateStart"
                   type="datetime"
                   placeholder="选择日期时间"
                   value-format="yyyy-mm-dd hh:mi:ss"
+                  prop='dataStart '
                   >
                 </el-date-picker>
-                 <div class="demonstration">值：{{ ruleForm.dateEnd }}</div>
+                 <!-- <div class="demonstration">值：{{ ruleForm.dateEnd }}</div> -->
                  <span>结束日期：</span>
                 <el-date-picker
                   v-model="ruleForm.dateEnd"
@@ -42,48 +43,22 @@
                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
               </el-upload>
-            <!-- <el-upload
-                drag
-                action="http://localhost:5000/upload/picture"
-                :show-file-list="false"
-                :on-success="handleAvatarSuccess"
-                >
-                 <img v-if="ruleForm.photoUrl" :src="ruleForm.photoUrl" class="avatar">
-                 <div v-else>
-                  <i class="el-icon-upload"></i>
-                  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                </div>
-                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-              </el-upload> -->
               </el-col>
           </el-form-item>
           <el-form-item label="活动人数"  v-model="ruleForm.count">
               <el-input  v-model="ruleForm.count"></el-input>
           </el-form-item>
            <el-form-item label="活动类型" v-model="ruleForm.list">
-             <P>{{ ruleForm.list}}</P>
+             <!-- <P>{{ ruleForm.list}}</P> -->
               <el-checkbox-group 
                 v-model="ruleForm.list"
                 :min="1"
                 :max="2">
                 <el-checkbox v-for="city in ruleForm.cities" :label="city" :key="city">{{city}}</el-checkbox>
               </el-checkbox-group>
-              <!-- <el-radio-group>
-                <el-radio v-model="ruleForm.type"   border  label="迎新晚会"></el-radio>
-                <el-radio border label="英语演讲"></el-radio>
-                <el-radio border label="广场活动"></el-radio>
-                <el-radio border label="个人活动"></el-radio>
-                <el-radio border label="团队活动"></el-radio>
-                <el-radio border label="校办活动"></el-radio>
-                <el-radio border label="系办活动"></el-radio>
-                <el-radio border label="餐厅活动"></el-radio>
-              </el-radio-group> -->
             </el-form-item>
           
           <el-form-item label="详细信息" required class="active-detail">
-            <!-- <span>{{ruleForm.detail}}</span>
-            <UE :defaultMsg=defaultMsg :config="config" ref="ue"></UE> -->
-            <!-- <v-vueQuillEditor></v-vueQuillEditor> -->
             <quill-editor
                 class="quill" 
                 v-model="ruleForm.detail" 
@@ -109,14 +84,14 @@ import UE from "../component/ue";
 import { userpublish } from "@/api/getInfo";
 import vueQuillEditor from "./edit.vue";
 const cityOptions = [
-  "迎新晚会",
-  "英语演讲",
-  "广场活动",
+  "兴趣活动",
+  "比赛活动",
+  "节日活动",
   "个人活动",
   "团队活动",
   "校办活动",
   "系办活动",
-  "餐厅活动"
+  "学习活动"
 ];
 export default {
   components: { UE },
@@ -166,7 +141,7 @@ export default {
         detail: "",
         count: 50,
         user_id:"",
-        list: ["迎新晚会", "英语演讲"],
+        list: ["比赛活动", "团队活动"],
         cities: cityOptions
       },
       rules: {
@@ -220,7 +195,23 @@ export default {
           this.ruleForm.user_id=parseInt(localStorage.getItem("ms_userid"));
           userpublish(this.ruleForm)
             .then(res => {
-              console.log(res);
+                this.$confirm("发布成功?", "提示", {
+                confirmButtonText: "发布",
+                cancelButtonText: "返回首页",
+                type: "warning",
+                center: true,
+                callback: action => {
+                  if (action == "confirm") {
+                    this.resetForm('ruleForm');
+                    // localStorage.clear();
+                    // Bus.$emit("setCurrUsername", null);
+                    
+                  } else {
+                       this.$router.push("/");
+                  }
+                }
+              });
+              // console.log(res);
             })
             .catch();
         } else {

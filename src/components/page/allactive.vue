@@ -1,30 +1,19 @@
 <template>
- <!-- <div id="wp" class="wp mm cm-page"> -->
    <div class="w1080 faxian cl">
        <div class="cl mgb_20" style="position: relative;">
          <div class="y">
            <div class="list">
               <article class="article cl" v-for="(active,index) in actives" :key="index">
-                    <a href="http://sh.huodongwang.com/article-90651-1.html" class="img" target="_blank" ><img :src="active.activity.photoUrl"></a>
+                    <a href="http://sh.huodongwang.com/article-90651-1.html" class="img" target="_blank" ><img class="datailimage" :src="active.activity.photoUrl"></a>
                     <div class="info">
                         <h2><a href="http://sh.huodongwang.com/article-90651-1.html" target="_blank" :title="active.activity.name">{{active.activity.name}}</a></h2>
                         <p class="avatar"><span><img :src="active.activity.photoUrl">{{active.user.name}}</span></p>
-                        <p>活动时间：{{active.activity.dateStart}}</p>
+                        <p>活动时间：{{active.activity.dateStart}}-{{active.activity.dateEnd}}</p>
                         <p class="pdr_140">活动地点：{{active.activity.address}}</p>
                         <a href="
                         " class="cm-btn cm_bg_1 art-btn" target="_blank">立即报名</a>
                     </div>
               </article>
-              <!-- <article class="article cl">
-                    <a href="http://sh.huodongwang.com/article-90651-1.html" class="img" target="_blank" style="background-image:url(../../assets/pipa.jpg);"></a>
-                    <div class="info">
-                        <h2><a href="http://sh.huodongwang.com/article-90651-1.html" target="_blank" title="2019年上海春季五金展_中国国际五金博览会">2019年上海春季五金展_中国国际五金博览会</a></h2>
-                        <p class="avatar"><a href="http://www.huodongwang.com/space-uid-17248.html"><img src="http://www.huodongwang.com/uc/avatar.php?uid=17248&amp;size=small"> 胡镔</a></p>
-                        <p>时间：2019-03-29 00:00</p>
-                        <p class="pdr_140">地点：上海青浦区崧泽大道333号国家会展中心（上海-虹桥）</p>
-                        <a href="http://sh.huodongwang.com/article-90651-1.html" class="cm-btn cm_bg_1 art-btn" target="_blank">立即报名</a>
-                    </div>
-              </article> -->
            </div>
          </div>
        </div>
@@ -123,6 +112,10 @@ export default {
   font-size: 20px;
   font-weight: 400;
   margin-bottom: 10px;
+}
+.img .datailimage{
+width: 200px;
+height: 115px;
 }
 a {
   color: #333;
