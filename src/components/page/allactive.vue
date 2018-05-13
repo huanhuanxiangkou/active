@@ -1,4 +1,5 @@
 <template>
+  <div class="ghh-allac">
    <div class="w1080 faxian cl">
        <div class="cl mgb_20" style="position: relative;">
          <div class="y">
@@ -16,6 +17,7 @@
            </div>
          </div>
        </div>
+   </div>
    </div>
   <!-- </div> -->
 </template>
@@ -74,27 +76,27 @@ export default {
 };
 </script>
 <style>
-.wp {
+.ghh-allac .wp {
   width: auto !important;
 }
-.w1080,
-.wp {
+.ghh-allac .w1080,
+.ghh-allac .wp {
   margin: 0 auto;
   width: 1080px;
 }
-.mgb_20 {
+.ghh-allac .mgb_20 {
   margin-bottom: 20px;
 }
-.faxian .y {
+.ghh-allac .faxian .y {
   width: 895px;
 }
-.article,
-.article:after {
+.ghh-allac .article,
+.ghh-allac .article:after {
   -webkit-transition: all 0.3s ease-out;
   -moz-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-.article {
+.ghh-allac .article {
   position: relative;
   margin: 0 0 20px 0;
   padding: 20px;
@@ -102,67 +104,67 @@ export default {
   background-color: #fafafa;
   border: 1px solid #eee;
 }
-.article .img {
+.ghh-allac .article .img {
   float: left;
   width: 180px;
   height: 150px;
   margin-right: 20px;
 }
-.article .img,
-.sidebar-hot .img {
+.ghh-allac .article .img,
+.ghh-allac .sidebar-hot .img {
   display: block;
   background: no-repeat center center;
   background-size: cover;
 }
-.article .info {
+.ghh-allac .article .info {
   overflow: hidden;
 }
-.article h2 {
+.ghh-allac .article h2 {
   font-size: 20px;
   font-weight: 400;
   margin-bottom: 10px;
 }
-.img .datailimage{
+.ghh-allac .img .datailimage{
 width: 200px;
 height: 115px;
 }
-a {
+.ghh-allac a {
   color: #333;
   text-decoration: none;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
-.article p {
+.ghh-allac .article p {
   margin-top: 10px;
   color: #777;
 }
-.article p a {
+.ghh-allac .article p a {
   color: #777;
 }
-.article .avatar img {
+.ghh-allac .article .avatar img {
   width: 25px;
   height: 25px;
   border-radius: 15px;
   vertical-align: middle;
 }
-img {
+.ghh-allac img {
   border: none;
   max-width: 100%;
   height: auto;
 }
-.article p {
+.ghh-allac .article p {
   margin-top: 10px;
   color: #777;
 }
-.pdr_140 {
+.ghh-allac .pdr_140 {
   padding-right: 140px;
 }
-.art-btn {
+.ghh-allac .art-btn {
   position: absolute;
   right: 20px;
   bottom: 20px;
 }
-.cm-btn {
+.ghh-allac .cm-btn {
   display: inline-block;
   padding: 6px 20px;
   font-size: 16px;
@@ -183,14 +185,14 @@ img {
   transition: background-color 300ms ease-out, border-color 300ms ease-out;
   outline: 0;
 }
-.cm_bg_1 {
+.ghh-allac .cm_bg_1 {
   background: #5eb95e;
   color: #fff;
 }
-.article:hover:before {
+.ghh-allac .article:hover:before {
   opacity: 1;
 }
-.article:before {
+.ghh-allac .article:before {
   content: "";
   z-index: -1;
   position: absolute;
@@ -201,8 +203,8 @@ img {
   opacity: 0;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
-.article,
-.article:after {
+.ghh-allac .article,
+.ghh-allac .article:after {
   -webkit-transition: all 0.3s ease-out;
   -moz-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;

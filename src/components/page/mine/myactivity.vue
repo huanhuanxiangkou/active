@@ -1,50 +1,88 @@
 <template>
-<div class="myhome-article cl">
-          <a href="http://bj.huodongwang.com/article-91114-1.html" class="img" style="background-image:url(data/attachment/data/attachment/cnyinglan_huodongs/2018/043/104531vwsmmokwonwm6siz.jpg_252_189_2_0.jpg)"></a>
+<div>
+  <div class="myhome-article cl" v-for="(activity,index) in activitys" :key="index">
+          <a href="#" class="img"><img :src="activity.activity.photoUrl"></a>
           <div class="info">
-              <h2><a href="http://bj.huodongwang.com/article-91114-1.html" target="_blank">[4.7周六]欢 乐 狼 人 杀—蒙面涛涛复活指刀|友行友派</a></h2>
-              <p>发布者：<a href="http://www.huodongwang.com/home.php?mod=space&amp;uid=17320&amp;do=profile&amp;op=huodong">友行友派</a><span class="state">状态：已收藏</span></p>
-              <p>活动时间：2018-04-07 13:00-2018-04-07 19:00</p>
-              <p><a href="javascript:;" class="btn btn-danger" onclick="deleshoucang('1067')">删除收藏</a></p>
-          </div>
+              <h2><a href="javascript:void(0);" target="_blank" @click="activeDetail(activity)">{{activity.activity.name}}</a></h2>
+              <p>发布者：<a href="javascript:void(0);">{{activity.user.name}}</a><span class="state">状态：已收藏</span></p>
+              <p>活动时间：{{activity.activity.dateStart}}-{{activity.activity.dateEnd}}</p>
+              <p><a href="javascript:void(0);" class="btn btn-danger" @click="delCollection(activity,index)">删除收藏</a></p>
+        </div>
+  </div>
 </div>
 </template>
 <script>
 import {
   getUserById,
   getCollectionActivitys,
-  getSignupActivitys
+  getSignupActivitys,
+  cancelCollection
 } from "@/api/getInfo";
 export default {
   data() {
     return {
-      user: {}
+      user: {},
+      activitys: [],
+      type: this.$route.query.acType
     };
   },
   mounted() {
-    let type = this.$route.query.acType;
-    let userId = parseInt(this.$route.query.userId);
-    switch (type) {
-      case "sign":
-        getSignupActivitys(userId)
-          .then()
-          .catch();
-        break;
-      case "publish":
-        break;
-      case "collection":
-        // console.log(typeof this.$route.query.userId);
-        getCollectionActivitys()
-          .then(res => {})
-          .catch();
-        break;
-      case "tobeaudited":
-        break;
-
-      default:
-        break;
+    this.switchType();
+  },
+  watch: {
+    $route: function() {
+      this.switchType();
     }
-    // getSignupActivitys
+  },
+  methods: {
+    activeDetail(active) {
+      this.$router.push({
+        name: "detail",
+        query: {
+          activityId: active.activity.id
+        }
+      });
+    },
+    delCollection(active, index) {
+      cancelCollection(active.id)
+        .then(res => {
+          if (res.data.code == 200) {
+            this.activitys.splice(index, 1);
+            console.log(this.activitys);
+          }
+        })
+        .catch();
+    },
+    switchType() {
+      this.activitys=[];
+      switch (this.$route.query.acType) {
+        case "sign":
+          getSignupActivitys(this.$route.query.userId)
+            .then(res => {
+              if (res.data.code == 200) {
+                this.activitys = res.data.data;
+              }
+            })
+            .catch();
+          break;
+        case "publish":
+          break;
+        case "collection":
+          getCollectionActivitys(this.$route.query.userId)
+            .then(res => {
+              if (res.data.code == 200) {
+                this.activitys = res.data.data;
+              }
+            })
+            .catch();
+          break;
+        case "tobeaudited":
+          break;
+
+        default:
+          break;
+      }
+    }
   }
 };
 </script>

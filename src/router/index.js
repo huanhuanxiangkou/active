@@ -33,7 +33,7 @@ const myactivity = r => require.ensure([], () => r(require('@/components/page/mi
 const routes = [
   {
     path: '/special/list',
-    name: 'list',
+    name: 'speciallist',
     component: specialList
   },
   {

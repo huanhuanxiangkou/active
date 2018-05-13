@@ -147,7 +147,7 @@ export default {
       rules: {
         name: [
           { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+          { min: 2, max: 200, message: "长度在 2 到 200 个字符", trigger: "blur" }
         ],
         region: [
           { required: true, message: "请选择活动区域", trigger: "change" }

@@ -1,8 +1,8 @@
 <template>
 <div class="special-list">
-    <div class="banner"></div>
+    <div class="banner"><img :src="imgSrc"></div>
     <div class="w960">
-        <h3 class="block-title">特色推荐</h3>
+        <h3 class="block-title">{{title}}</h3>
         <div class="item-box-3 clearfloat">
             <div class="item">
                 <a href="http://gz.huodongwang.com/article-27306-1.html" class="item-con" target="_blank">
@@ -45,7 +45,53 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+        title:"",
+        imgSrc:"",
+    };
+  },
+  mounted() {
+      this.switchType();
+  },
+  methods: {
+    switchType() {
+      switch (this.$route.query.specialType) {
+        case "campus":
+        this.title="校办活动";
+        this.imgSrc=require("../../assets/campus.jpg");
+          break;
+        case "depart":
+        this.title="系办活动";
+        this.imgSrc=require("../../assets/depart.jpg");
+          break;
+        case "festival":
+        this.title="节日活动";
+        this.imgSrc=require("../../assets/festival.jpg");
+          break;
+        case "interest":
+        this.title="兴趣活动";
+        this.imgSrc=require("../../assets/interest.jpg");
+          break;
+        case "match":
+        this.title="学习活动";
+        this.imgSrc=require("../../assets/match.jpg");
+          break;
+        case "person":
+        this.title="个人活动";
+        this.imgSrc=require("../../assets/person.jpg");
+          break;
+        case "study":
+        this.title="校办活动";
+        this.imgSrc=require("../../assets/study1.jpg");
+          break;
+        case "team":
+        this.title="团队活动";
+        this.imgSrc=require("../../assets/team.jpg");
+          break;
+        default:
+          break;
+      }
+    }
   }
 };
 </script>
@@ -65,6 +111,10 @@ export default {
   }
 }
 
+.banner img{
+    width: 100%;
+    height: 450px;
+}
 .block-title {
   position: relative;
   max-width: 480px;
@@ -87,38 +137,38 @@ export default {
 }
 
 .item-box-3 .item-con {
-    display: block;
+  display: block;
 }
 .item-con {
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,.3);
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .item-box-3 .item .img {
-    display: block;
-    background: no-repeat center / cover;
-    width: 100%;
-    height: 210px;
+  display: block;
+  background: no-repeat center / cover;
+  width: 100%;
+  height: 210px;
 }
 .item-box-3 .item .info {
-    padding: 15px;
+  padding: 15px;
 }
 
 .item-box-3 .item .info h2 {
-    font-size: 17px;
-    line-height: 24px;
-    height: 50px;
-    overflow: hidden;
+  font-size: 17px;
+  line-height: 24px;
+  height: 50px;
+  overflow: hidden;
 }
 
 .item-con p {
-    margin-top: 10px;
-    color: #666;
+  margin-top: 10px;
+  color: #666;
 }
 
 .item-con p:last-child {
-    height: 40px;
-    overflow: hidden;
+  height: 40px;
+  overflow: hidden;
 }
 </style>
 

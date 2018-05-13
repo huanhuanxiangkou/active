@@ -1,4 +1,5 @@
 <template>
+<div class="ghh_detail">
 <div id="wp" class="wp mm cm-page">
     <div class="act-recent act-article cl clearfloat">
       <div class="act-content-header cl clearfloat">
@@ -26,8 +27,8 @@
                     </a>
              </p>
              <div class="func  clearfloat">
-                <button id="btn_register_main" class="btn btn-sign-up1" @click="signUp()">{{isSignUp}}</button>
-                <button class="btn btn-like" name="eventFollowBtn" @click="collection()">{{isCollection}} <span class="num"><em id="shoucangnums"></em></span></button>
+                <button id="btn_register_main" class="btn btn-sign-up1" @click="signUp()" :disabled="isSignupB" >{{isSignUp}}</button>
+                <button class="btn btn-like" name="eventFollowBtn" @click="collection()" :disabled="isCollectionB" >{{isCollection}} <span class="num"><em id="shoucangnums"></em></span></button>
             </div>
         </div>
       </div>   
@@ -51,9 +52,9 @@
                       </ul>
                       <div id="event_ticket_select_details " style="display: block;">免费票 - 报名期：活动开始前 </div>
                        <div id="event_ticket_order_number" class="mgt_10 mgb_10" style="display:none">订购数量：
-                              <select id="event_ticket_order_number_sel" onchange="event_ticket_order_number()" class="input form-control"><option value="1">1 张</option></select>
+                              <select id="event_ticket_order_number_sel" class="input form-control"><option value="1">1 张</option></select>
                           </div>
-                          <button id="reg_event_btn_enabled" href="javascript:;" class="btn btn-primary" onclick="startRegisterEvent();" style="display:none">我要参加</button>
+                          <button id="reg_event_btn_enabled" href="javascript:;" class="btn btn-primary"  style="display:none">我要参加</button>
                           <div v-html="activity.activity.detail">
                             <!-- {{activity.activity.detail}} -->
                           </div>
@@ -82,14 +83,23 @@
         </div>
     </el-dialog>
 </div>
+</div>
 </template>
 <script>
-import { findOne, activitySignup, collectionActivity } from "@/api/getInfo";
+import {
+  findOne,
+  activitySignup,
+  collectionActivity,
+  getCollectionActivitys,
+  getSignupActivitys
+} from "@/api/getInfo";
 export default {
   data() {
     return {
       isSignUp: "我要报名",
-      isCollection:"收藏",
+      isSignupB:false,
+      isCollection: "收藏",
+      isCollectionB:false,
       activity: {
         activity: {},
         user: {},
@@ -108,7 +118,32 @@ export default {
       .then(result => {
         if (result.data.code === 200) {
           this.activity = result.data.data;
-          console.log(this.activity);
+          getSignupActivitys(this.activity.user.id)
+            .then(res => {
+              if (res.data.code == 200) {
+                let isSignupT = res.data.data.some(active => {
+                  return active.activity.id == this.activity.activity.id;
+                });
+                if (isSignupT) {
+                  this.isSignupB =true;
+                  this.isSignUp = "已报名";
+                }
+              }
+            })
+            .catch();
+          getCollectionActivitys(this.activity.user.id)
+            .then(res => {
+              if (res.data.code == 200) {
+                let isCollectionT = res.data.data.some(active => {
+                  return active.activity.id == this.activity.activity.id;
+                });
+                if (isCollectionT) {
+                  this.isCollectionB = true;
+                  this.isCollection = "已收藏";
+                }
+              }
+            })
+            .catch();
         }
       })
       .catch(err => {});
@@ -120,15 +155,16 @@ export default {
     collection() {
       collectionActivity({
         user_id: this.activity.user.id,
-        acticity_id: this.activity.activity.id
+        activity_id: this.activity.activity.id
       })
         .then(res => {
-          if(res.data.code==200){
-            this.isCollection="已收藏";
+          if (res.data.code == 200) {
+            this.isCollectionB = true;
+            this.isCollection = "已收藏";
             this.$message({
-                    type: "success",
-                    message: "收藏成功!"
-                  });
+              type: "success",
+              message: "收藏成功!"
+            });
           }
         })
         .catch();
@@ -147,7 +183,7 @@ export default {
           if (action == "confirm") {
             activitySignup({
               user_id: this.activity.user.id,
-              acticity_id: this.activity.activity.id,
+              activity_id: this.activity.activity.id,
               phone_number: this.user.phone,
               wechat: this.user.line,
               name: this.user.name
@@ -155,6 +191,7 @@ export default {
               .then(result => {
                 if (result.data.code === 200) {
                   this.userDialog = false;
+                  this.isSignupB =true;
                   this.isSignUp = "已报名";
                   this.$message({
                     type: "success",
@@ -171,34 +208,34 @@ export default {
 };
 </script>
 <style>
-.act-recent {
+.ghh_detail .act-recent {
   padding-top: 30px;
   padding-bottom: 30px;
 }
 .cl {
   zoom: 1;
 }
-.act-article .act-content-header {
+.ghh_detail .act-article .act-content-header {
   border-bottom: 1px solid #eee;
   margin-bottom: 10px;
 }
-.act-article .thumbnail {
+.ghh_detail .act-article .thumbnail {
   float: left;
   margin-right: 20px;
   width: 420px;
   height: 269px;
   overflow: hidden;
 }
-.act-article .thumbnail img {
+.ghh_detail .act-article .thumbnail img {
   width: 100%;
   min-height: 100%;
 }
-img {
+.ghh_detail img {
   border: none;
   max-width: 100%;
   height: auto;
 }
-.act-content-header .y {
+.ghh_detail .act-content-header .y {
   width: 640px;
   position: relative;
   margin-bottom: 60px;
@@ -206,7 +243,7 @@ img {
 /* .y {
     float: right;
 } */
-.act-article .act-content-header p {
+.ghh_detail .act-article .act-content-header p {
   color: #444;
   margin-bottom: 10px;
 }
@@ -219,21 +256,21 @@ img {
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
 } */
-.act-article .jiathis_style_32x32 {
+.ghh_detail .act-article .jiathis_style_32x32 {
   text-align: center;
 }
-.act-content-header .jiathis_style_32x32 {
+.ghh_detail .act-content-header .jiathis_style_32x32 {
   position: absolute;
   top: 220px;
   right: 0;
 }
-.iconfont {
+.ghh_detail .iconfont {
   font-family: "iconfont";
   font-size: 20px;
   font-style: normal;
   margin-right: 5px;
 }
-.iconfont {
+.ghh_detail .iconfont {
   display: inline-block;
   font-family: "iconfont" !important;
   font-size: 16px;
@@ -242,7 +279,7 @@ img {
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-h1 {
+.ghh_detail h1 {
   display: block;
   font-size: 2em;
   -webkit-margin-before: 0.67em;
@@ -251,41 +288,41 @@ h1 {
   -webkit-margin-end: 0px;
   font-weight: bold;
 }
-.act-article h1 {
+.ghh_detail .act-article h1 {
   margin: 0 0 10px 0;
   font-size: 20px;
   color: #000;
   font-weight: normal;
 }
-.hd-touxiang img {
+.ghh_detail .hd-touxiang img {
   width: 20px;
   height: 20px;
 }
-.content-wrap {
+.ghh_detail .content-wrap {
   width: 100%;
   float: left;
 }
-.act-content {
+.ghh_detail .act-content {
   position: relative;
   margin-right: 320px;
   margin-bottom: 15px;
 }
-#btn_register_main {
+.ghh_detail #btn_register_main {
   /* text-indent: -200px; */
   overflow: hidden;
 }
-.btn-sign-up1 {
+.ghh_detail .btn-sign-up1 {
   /* background-position: -181px -131px; */
 }
-.btn-sign-up1,
-.charge,
-.btn-sign-up4,
-.btn-sign-up1.disabled {
+.ghh_detail .btn-sign-up1,
+.ghh_detail .charge,
+.ghh_detail .btn-sign-up4,
+.ghh_detail .btn-sign-up1.disabled {
   /* background-image: url(../images/details_bg.png); */
   width: 116px;
   height: 40px;
 }
-.btn {
+.ghh_detail .btn {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
@@ -299,54 +336,54 @@ h1 {
   border: 0;
   border-radius: 3px;
 }
-.baoming {
+.ghh_detail .baoming {
   position: relative;
 }
-.hd-cost {
+.ghh_detail .hd-cost {
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 1px dashed #ccc;
 }
-.home_register_title_tickets {
+.ghh_detail .home_register_title_tickets {
   font-weight: 400;
   font-size: 18px;
   margin-top: 15px;
 }
-.mgb_15 {
+.ghh_detail .mgb_15 {
   margin-bottom: 15px;
 }
-.piao-list li {
+.ghh_detail .piao-list li {
   margin-right: 1%;
   margin-bottom: 10px;
   cursor: pointer;
   width: 49%;
   float: left;
 }
-.piao-list .thumbnail_cn:hover,
-.piao-list .cur .et_selected {
+.ghh_detail .piao-list .thumbnail_cn:hover,
+.ghh_detail .piao-list .cur .et_selected {
   border-color: #5eb95e;
 }
-.piao-list .thumbnail_cn {
+.ghh_detail .piao-list .thumbnail_cn {
   padding: 6px;
   border: 2px solid #ccc;
   border-radius: 3px;
 }
-.piao-list .thumbnail_cn {
+.ghh_detail .piao-list .thumbnail_cn {
   padding: 6px;
   border: 2px solid #ccc;
   border-radius: 3px;
 }
-#event_ticket_select_details {
+.ghh_detail #event_ticket_select_details {
   color: red;
   font-size: 14px;
 }
-#event_ticket_select_details {
+.ghh_detail #event_ticket_select_details {
   color: #ff664f;
   font-size: 12px;
   display: none;
 }
-.hd-cost ul,
-.act-article .lists ul {
+.ghh_detail .hd-cost ul,
+.ghh_detail .act-article .lists ul {
   margin: 0;
   padding: 0;
   list-style: none;

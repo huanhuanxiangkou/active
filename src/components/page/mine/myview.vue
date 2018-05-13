@@ -1,4 +1,5 @@
 <template>
+<div class="ghh_view">
   <div id="wp" class="wp mm cm-page">
      <div class="w1080 myhome cl clearfloat" style="position: relative;">
           <div class="myhome-sidebar" style="">
@@ -37,6 +38,7 @@
            </div>
           </div>
   </div>
+  </div>
 </template>
 <script>
 import { findOne, activitySignup, getUserById } from "@/api/getInfo";
@@ -60,21 +62,21 @@ export default {
 <style>
 @import "../../../style/base/base_xss.css";
 
-.cm-page {
+.ghh_view .cm-page {
   width: auto;
   background: #5e7aa1
-    url(http://dl.bizhi.sogou.com/images/2012/03/01/118481.jpg) no-repeat center -110px;
+    url(http://image.baidu.com/search/detail?ct=503316480&z=&tn=baiduimagedetail&ipn=d&word=%E8%83%8C%E6%99%AF&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=-1&cs=1978103051,4226632896&os=1067603837,1676129945&simid=0,0&pn=13&rn=1&di=53720198420&ln=1994&fr=&fmq=1526179216168_R&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&is=0,0&istype=2&ist=&jit=&bdtype=13&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb21bb051f819861829ad39a040ed2e738bd4e628.jpg&rpstart=0&rpnum=0&adpicid=0) no-repeat center -110px;
   padding-top: 100px;
 }
 
-.myhome {
+.ghh_view .myhome {
   background-color: rgba(0, 0, 0, 0.2);
   padding: 10px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
-.myhome-sidebar {
+.ghh_view .myhome-sidebar {
   float: left;
   width: 220px;
   z-index: 3;
@@ -82,43 +84,43 @@ export default {
 .cl {
   zoom: 1;
 }
-.myhome-avatar {
+.ghh_view .myhome-avatar {
   margin-bottom: 15px;
 }
-.myhome-avatar .heading {
+.ghh_view .myhome-avatar .heading {
   background: #5e7aa1
-    url(http://dl.bizhi.sogou.com/images/2012/03/01/118481.jpg) no-repeat center;
+    url(http://image.baidu.com/search/detail?ct=503316480&z=&tn=baiduimagedetail&ipn=d&word=%E8%83%8C%E6%99%AF&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=-1&cs=1978103051,4226632896&os=1067603837,1676129945&simid=0,0&pn=13&rn=1&di=53720198420&ln=1994&fr=&fmq=1526179216168_R&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&is=0,0&istype=2&ist=&jit=&bdtype=13&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb21bb051f819861829ad39a040ed2e738bd4e628.jpg&rpstart=0&rpnum=0&adpicid=0) no-repeat center;
   /* background: url(http://dl.bizhi.sogou.com/images/2012/03/01/118481.jpg) no-repeat center center / cover; */
   position: relative;
   height: 75px;
 }
-.myhome-avatar .avatar {
+.ghh_view .myhome-avatar .avatar {
   position: absolute;
   bottom: -25px;
   left: 50%;
   margin-left: -30px;
 }
-.myhome-avatar .avatar img {
+.ghh_view .myhome-avatar .avatar img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
 }
-.myhome img {
+.ghh_view .myhome img {
   max-width: 100%;
 }
-.myhome-avatar .bodying {
+.ghh_view .myhome-avatar .bodying {
   background-color: #fff;
   padding: 25px 20px 20px 20px;
   text-align: center;
   border-radius: 0 0 3px 3px;
 }
-.myhome-avatar .bodying .name {
+.ghh_view .myhome-avatar .bodying .name {
   font-size: 16px;
 }
-.myhome-avatar .bodying .follow {
+.ghh_view .myhome-avatar .bodying .follow {
   margin-top: 15px;
 }
-.myhome .btn {
+.ghh_view .myhome .btn {
   display: inline-block;
   background-color: #5eb95e;
   border: 1px solid #5eb95e;
@@ -126,40 +128,40 @@ export default {
   padding: 5px 10px;
   border-radius: 3px;
 }
-.myhome .btn-2 {
+.ghh_view .myhome .btn-2 {
   color: #5eb95e;
   background-color: #fff;
 }
-.myhome-sidebar-nav {
+.ghh_view .myhome-sidebar-nav {
   width: 220px;
 }
-.myhome-sidebar-nav li {
+.ghh_view .myhome-sidebar-nav li {
   line-height: 40px;
   text-align: center;
 }
-.myhome-sidebar-nav li a.on,
-.myhome-sidebar-nav li a:hover {
+.ghh_view .myhome-sidebar-nav li a.on,
+.ghh_view .myhome-sidebar-nav li a:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
-.myhome-sidebar-nav li a {
+.ghh_view .myhome-sidebar-nav li a {
   padding: 0 15px;
   display: block;
   color: #fff;
 }
-.myhome-content,
-.myhome-content-content {
+.ghh_view .myhome-content,
+.ghh_view .myhome-content-content {
   overflow: hidden;
 }
-.myhome-content {
+.ghh_view .myhome-content {
   padding-left: 15px;
 }
-.noContent {
+.ghh_view .noContent {
   padding: 50px 15px;
   text-align: center;
   background-color: #fff;
 }
 
-.myhome-article {
+.ghh_view .myhome-article {
   padding: 15px;
   background-color: #fff;
   border-radius: 3px;
@@ -167,7 +169,7 @@ export default {
   position: relative;
 }
 
-.myhome-article .img {
+.ghh_view .myhome-article .img {
   float: left;
   background: no-repeat center center / cover;
   width: 150px;
@@ -175,40 +177,40 @@ export default {
   margin-right: 15px;
 }
 
-.myhome-article .info {
+.ghh_view .myhome-article .info {
   overflow: hidden;
   min-height: 110px;
 }
 
-.myhome-article .info h2 {
+.ghh_view .myhome-article .info h2 {
   font-size: 16px;
   font-weight: 400;
   border-bottom: 1px dashed #ccc;
   padding-bottom: 10px;
 }
 
-.myhome-article .info p {
+.ghh_view .myhome-article .info p {
   margin-top: 10px;
 }
 
-.myhome-article .info .state {
+.ghh_view .myhome-article .info .state {
   padding-left: 15px;
 }
 
-.myhome-article .info p {
+.ghh_view .myhome-article .info p {
   margin-top: 10px;
 }
 
-.myhome-article .info p {
+.ghh_view .myhome-article .info p {
   margin-top: 10px;
 }
 
-.myhome .btn-danger {
+.ghh_view .myhome .btn-danger {
   background-color: #dd514c;
   border-color: #dd514c;
 }
 
-.myhome .btn {
+.ghh_view .myhome .btn {
   display: inline-block;
   color: #fff;
   padding: 5px 10px;

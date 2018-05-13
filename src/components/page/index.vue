@@ -40,12 +40,12 @@
               </h2>
                 <el-row>
                     <el-carousel :interval="5000" arrow="always">
-                        <el-carousel-item v-for="item in 2" :key="item">
-                            <el-col :span="6" v-for="item2 in 4" :key="item2">
-                                <a href="http://www.huodongwang.com/html/zhuanti/outdoors/summer-camp/2016/index.html" target="_blank" class="cm-special-a">
-                                <img src="../../assets/logo.png">
-                                <h3 title="宝贝暑期的正确打开方式">宝贝暑期的正确打开方式</h3>
-                                <p>做家长，除了希望看到宝贝健康成长，更希望他们有一个丰富多彩的童年；做老师，除了希望看到学生学习进步，更希望他们能出色的展现自我...成长，还需要更多外出磨炼...暑期的夏令营，你想好带孩子去哪儿了吗？</p>
+                        <el-carousel-item v-for="(item,index) in 2" :key="index">
+                            <el-col :span="6" v-for="(special,index) in specials[index]" :key="index">
+                                <a href="javascript:void(0);" target="_blank" class="cm-special-a" @click="specialPage(special)">
+                                <img :src="special.imgSrc">
+                                <h3 :title="special.title">{{special.title}}</h3>
+                                <p>{{special.content}}</p>
                                 </a>
                             </el-col>
                         </el-carousel-item>
@@ -56,12 +56,12 @@
       <div class="cm-life boxbg pd_50_0 clearfloat">
           <div class="w1080">
               <h2>
-                <span>学习 · Life</span>
+                <span>学习 · Study</span>
                 <router-link to="/life"><a href="#" class="y more" target="_blank">更多</a></router-link>
               </h2>
               <div class="clearfloat">
               <div class="cm-life-big">
-                  <img src="../../assets/life1.jpg" alt="学习">
+                  <img src="../../assets/study.jpg" alt="学习">
               </div>
               <div class="z mgt-30" style="width:748px">
                   <div class="z cm-life-small" v-for="(learnActivitie,index) in learnActivitiecs" :key="index">
@@ -109,13 +109,75 @@ export default {
         require("../../assets/lunbotu3.jpg")
       ],
       recommends: [],
-      learnActivities:[]
+      specials: [
+        [
+          {
+            imgSrc: require("../../assets/campus.jpg"),
+            routeLink: "",
+            type: "campus",
+            title: "校办活动",
+            content: ""
+          },
+          {
+            imgSrc: require("../../assets/depart.jpg"),
+            routeLink: "",
+            type: "depart",
+            title: "系办活动",
+            content: ""
+          },
+          {
+            imgSrc: require("../../assets/festival.jpg"),
+            routeLink: "",
+            type: "festival",
+            title: "节日活动",
+            content: ""
+          },
+          {
+            imgSrc: require("../../assets/interest.jpg"),
+            routeLink: "",
+            type: "interest",
+            title: "兴趣活动",
+            content: ""
+          }
+        ],
+        [
+          {
+            imgSrc: require("../../assets/match.jpg"),
+            routeLink: "",
+            type: "match",
+            title: "比赛活动",
+            content: ""
+          },
+          {
+            imgSrc: require("../../assets/person.jpg"),
+            routeLink: "",
+            type: "person",
+            title: "个人活动",
+            content: ""
+          },
+          {
+            imgSrc: require("../../assets/study1.jpg"),
+            routeLink: "",
+            type: "study",
+            title: "学习活动",
+            content: ""
+          },
+          {
+            imgSrc: require("../../assets/team.jpg"),
+            routeLink: "",
+            type: "team",
+            title: "团队活动",
+            content: ""
+          }
+        ]
+      ],
+      learnActivities: []
     };
   },
-  computed:{
-      learnActivitiecs(){
-          return this.learnActivities.splice(0,6);
-      }
+  computed: {
+    learnActivitiecs() {
+      return this.learnActivities.splice(0, 6);
+    }
   },
   mounted() {
     getAllActivitys()
@@ -128,8 +190,11 @@ export default {
           this.recommends.push(activitys[len - 3]);
           this.recommends.push(activitys[len - 4]);
 
-          this.learnActivities=activitys.filter(item=>{
-              return item.list.indexOf("学习活动") != -1;
+          this.learnActivities = activitys.filter(item => {
+            console.log(item.list);
+            return item.list.some(item2 => {
+              return item2.name == "学习活动";
+            });
           });
         }
       })
@@ -144,6 +209,14 @@ export default {
         name: "detail",
         query: {
           activityId: recommend.activity.id
+        }
+      });
+    },
+    specialPage(active) {
+      this.$router.push({
+        name: "speciallist",
+        query: {
+          specialType: active.type
         }
       });
     }
@@ -276,6 +349,7 @@ export default {
   display: block;
   height: 165px;
   margin: 0 auto;
+  width: 100%;
 }
 .cm-special-a h3 {
   font-size: 18px;
@@ -285,6 +359,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-align: center;
 }
 .cm-special-a h3 {
   font-size: 18px;
@@ -312,7 +387,7 @@ export default {
 .cm-life-big img {
   border: none;
   max-width: 100%;
-  height: auto;
+  height: 100%;
 }
 .cm-life-small {
   width: 218px;
@@ -333,6 +408,8 @@ export default {
 }
 .cm-life-small .img img {
   display: block;
+  height: 100%;
+  width: 100%;
 }
 .cm-life-small .info {
   position: absolute;
@@ -388,6 +465,19 @@ export default {
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   width: 80%;
+}
+.cm-life-small .avatar img {
+  display: inline-block;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  border: none;
+  max-width: 100%;
+}
+.cm-life-small .avatar span{
+      vertical-align: middle;
+    padding-left: 5px;
 }
 .cm-life-small .info:hover {
   height: 93.5%;

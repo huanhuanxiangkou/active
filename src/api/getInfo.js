@@ -56,20 +56,12 @@ export const collectionActivity = (data) => baseAxios.post('/collection/operatio
 /**
  * 取消收藏
  */
-export const cancelCollection = (activityId) => baseAxios.delete('/collection/operation', {
-  params: {
-    id: activityId
-  }
-})
+export const cancelCollection = (activityId) => baseAxios.delete('/collection/operation/'+activityId)
 
 /**
  * 查询用户收藏的活动
  */
-export const getCollectionActivitys = (userId) => baseAxios.get('/collection/findByUser', {
-  params: {
-    user_id: userId
-  }
-})
+export const getCollectionActivitys = (userId) => baseAxios.get('/collection/findByUser/'+userId)
 
 /**
  * 修改和审批评论
@@ -93,8 +85,4 @@ export const activitySignup = (data) => baseAxios.post('/signup/operation', data
 /**
  * 查看用户报名的活动
  */
-export const getSignupActivitys = (userID) => baseAxios.get('/signup/findByUser', {
-  params: {
-    user_id: userID
-  }
-})
+export const getSignupActivitys = (userID) => baseAxios.get('/signup/findByUser/'+userID)
