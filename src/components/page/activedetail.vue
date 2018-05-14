@@ -105,6 +105,7 @@ export default {
         user: {},
         list: []
       },
+      userId:"",
       user: {
         name: "",
         phone: "",
@@ -114,11 +115,12 @@ export default {
     };
   },
   mounted() {
+    this.userId= parseInt(localStorage.getItem("ms_userid"));
     findOne(this.$route.query.activityId)
       .then(result => {
         if (result.data.code === 200) {
           this.activity = result.data.data;
-          getSignupActivitys(this.activity.user.id)
+          getSignupActivitys(this.userId)
             .then(res => {
               if (res.data.code == 200) {
                 let isSignupT = res.data.data.some(active => {
@@ -131,7 +133,7 @@ export default {
               }
             })
             .catch();
-          getCollectionActivitys(this.activity.user.id)
+          getCollectionActivitys(this.userId)
             .then(res => {
               if (res.data.code == 200) {
                 let isCollectionT = res.data.data.some(active => {
@@ -154,7 +156,7 @@ export default {
     },
     collection() {
       collectionActivity({
-        user_id: this.activity.user.id,
+        user_id: this.userId,
         activity_id: this.activity.activity.id
       })
         .then(res => {
@@ -182,7 +184,7 @@ export default {
         .then(action => {
           if (action == "confirm") {
             activitySignup({
-              user_id: this.activity.user.id,
+              user_id: this.userId,
               activity_id: this.activity.activity.id,
               phone_number: this.user.phone,
               wechat: this.user.line,

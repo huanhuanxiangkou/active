@@ -36,7 +36,7 @@
           <div class="lunbo12 w1080">
               <h2>
                 <span class="bga">专题 · special</span>
-                <router-link to="/special"><a href="#" class="y more" target="_blank">更多</a></router-link>
+                <router-link to="/special"><a href="#" class="y more" target="_blank"></a></router-link>
               </h2>
                 <el-row>
                     <el-carousel :interval="5000" arrow="always">
@@ -57,7 +57,7 @@
           <div class="w1080">
               <h2>
                 <span>学习 · Study</span>
-                <router-link to="/life"><a href="#" class="y more" target="_blank">更多</a></router-link>
+                <router-link to="/life"><a href="#" class="y more" target="_blank"></a></router-link>
               </h2>
               <div class="clearfloat">
               <div class="cm-life-big">
@@ -183,7 +183,9 @@ export default {
     getAllActivitys()
       .then(res => {
         if (res.data.code == 200) {
-          let activitys = res.data.data;
+          let activitys = res.data.data.filter(item=>{
+            return item.activity.status==1
+          });
           let len = activitys.length;
           this.recommends.push(activitys[len - 1]);
           this.recommends.push(activitys[len - 2]);
@@ -191,7 +193,6 @@ export default {
           this.recommends.push(activitys[len - 4]);
 
           this.learnActivities = activitys.filter(item => {
-            console.log(item.list);
             return item.list.some(item2 => {
               return item2.name == "学习活动";
             });

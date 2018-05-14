@@ -23,10 +23,13 @@
 </template>
 <script>
 import { getAllActivitys, findActivityByKey } from "@/api/getInfo";
+import { Bus } from "@/VueInstance/vueIns";
 export default {
   data() {
     return {
-      actives: []
+      actives: [],
+      type: "",
+      keyWords: ""
     };
   },
   computed: {
@@ -34,43 +37,80 @@ export default {
       return localStorage.getItem("ms_username");
     }
   },
-  mounted() {
-    console.log(this.$route.query.type);
-    let type = this.$route.query.type;
-    switch (type) {
-      case "school":
-      findActivityByKey("校办活动").then(res=>{
-          if(res.data.code===200){
-              this.actives = [];
-              this.actives=res.data.data;
-          }
-      }).catch();
-        break;
-      case "department":
-        break;
-      case "group":
-        break;
-      case "personal":
-        break;
-      default:
-        break;
+  watch: {
+    $route: function() {
+      this.findActivityByType(this.$route.query.type);
+    },
+    keyWords: function() {
+      this.getActivitysByKeywords(this.keyWords);
     }
-    getAllActivitys({})
-      .then(res => {
-        if (res.data.code === 200) {
-          this.actives = res.data.data;
-        }
-      })
-      .catch();
   },
-  methods:{
-       activeDetail(active) {
+  mounted() {
+    Bus.$on("setKeywords", msg => {
+      this.keyWords = msg;
+    });
+    this.type = this.$route.query.type;
+    this.findActivityByType(this.type);
+  },
+  methods: {
+    activeDetail(active) {
       this.$router.push({
         name: "detail",
         query: {
           activityId: active.activity.id
         }
       });
+    },
+    findActivityByType(type) {
+      this.actives = [];
+      switch (type) {
+        case "school":
+          this.getActivitys("校办活动");
+          break;
+        case "department":
+          this.getActivitys("系办活动");
+          break;
+        case "group":
+          this.getActivitys("团队活动");
+          break;
+        case "personal":
+          this.getActivitys("个人活动");
+          break;
+        case "keywords":
+          this.keyWords = localStorage.getItem("ms_keywords");
+          this.getActivitysByKeywords(this.keyWords);
+          break;
+        default:
+          break;
+      }
+    },
+    getActivitys(type) {
+      getAllActivitys({})
+        .then(res => {
+          if (res.data.code === 200) {
+            let allActives = res.data.data.filter(item => {
+              return item.activity.status == 1;
+            });
+
+            this.actives = allActives.filter(item => {
+              return item.list.some(item2 => {
+                return item2.name == type;
+              });
+            });
+          }
+        })
+        .catch();
+    },
+    getActivitysByKeywords(keyWords) {
+      findActivityByKey(keyWords)
+        .then(result => {
+          if (result.data.code == 200) {
+            this.actives = result.data.data.filter(item => {
+              return item.activity.status == 1;
+            });
+          }
+        })
+        .catch(err => {});
     }
   }
 };
@@ -124,9 +164,9 @@ export default {
   font-weight: 400;
   margin-bottom: 10px;
 }
-.ghh-allac .img .datailimage{
-width: 200px;
-height: 115px;
+.ghh-allac .img .datailimage {
+  width: 200px;
+  height: 115px;
 }
 .ghh-allac a {
   color: #333;

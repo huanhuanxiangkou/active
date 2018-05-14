@@ -4,9 +4,12 @@
           <a href="#" class="img"><img :src="activity.activity.photoUrl"></a>
           <div class="info">
               <h2><a href="javascript:void(0);" target="_blank" @click="activeDetail(activity)">{{activity.activity.name}}</a></h2>
-              <p>发布者：<a href="javascript:void(0);">{{activity.user.name}}</a><span class="state">状态：已收藏</span></p>
+              <p>发布者：<a href="javascript:void(0);">{{activity.user.name}}</a>
+              <span class="state" v-if="activity.activity.status==0">状态：未审核</span>
+              <span class="state" v-else>状态：{{status}}</span>
+              </p>
               <p>活动时间：{{activity.activity.dateStart}}-{{activity.activity.dateEnd}}</p>
-              <p><a href="javascript:void(0);" class="btn btn-danger" @click="delCollection(activity,index)">删除收藏</a></p>
+              <p v-if="isCollection"><a href="javascript:void(0);" class="btn btn-danger" @click="delCollection(activity,index)">删除收藏</a></p>
         </div>
   </div>
 </div>
@@ -16,14 +19,17 @@ import {
   getUserById,
   getCollectionActivitys,
   getSignupActivitys,
-  cancelCollection
+  cancelCollection,
+  getAllActivitys
 } from "@/api/getInfo";
 export default {
   data() {
     return {
       user: {},
       activitys: [],
-      type: this.$route.query.acType
+      type: this.$route.query.acType,
+      status: "",
+      isCollection: false
     };
   },
   mounted() {
@@ -48,30 +54,46 @@ export default {
         .then(res => {
           if (res.data.code == 200) {
             this.activitys.splice(index, 1);
-            console.log(this.activitys);
+            // console.log(this.activitys);
           }
         })
         .catch();
     },
     switchType() {
-      this.activitys=[];
+      this.activitys = [];
+      this.isCollection = false;
       switch (this.$route.query.acType) {
         case "sign":
           getSignupActivitys(this.$route.query.userId)
             .then(res => {
               if (res.data.code == 200) {
                 this.activitys = res.data.data;
+                this.status = "已报名";
               }
             })
             .catch();
           break;
         case "publish":
+          getAllActivitys()
+            .then(res => {
+              if (res.data.code == 200) {
+                this.activitys = res.data.data.filter(item => {
+                  return (
+                    item.user.id == parseInt(localStorage.getItem("ms_userid"))
+                  );
+                });
+                this.status = "已审核";
+              }
+            })
+            .catch();
           break;
         case "collection":
           getCollectionActivitys(this.$route.query.userId)
             .then(res => {
               if (res.data.code == 200) {
                 this.activitys = res.data.data;
+                this.status = "已收藏";
+                this.isCollection = true;
               }
             })
             .catch();

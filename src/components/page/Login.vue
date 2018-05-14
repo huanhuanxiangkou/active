@@ -67,11 +67,10 @@ export default {
     login() {
       userLogin(this.ruleForm.password,this.ruleForm.username,this.ruleForm.role  )
         .then(res => {
-          // console.log('res========',res)
-          console.log(res.data)
           if (res.data.code===200 ){
                localStorage.setItem('ms_username',res.data.data.name);
                localStorage.setItem('ms_userid',res.data.data.id);
+               localStorage.setItem('ms_userrole',res.data.data.role);
                 Bus.$emit('setCurrUsername',res.data.data.name);
                 this.$router.push({path:"/"});
           }

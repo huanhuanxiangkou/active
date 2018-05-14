@@ -6,7 +6,7 @@
               <div class="myhome-avatar">
                   <div class="heading" style="background-image:url(template/hd3/img/profile_bg.jpg)">
                       <a href="javascript:void(0)" class="avatar">
-                          <img src="uc/avatar.php?uid=17775&amp;size=middle">
+                          <img src="../../../assets/tx.jpeg">
                       </a>
                   </div>
                   <div class="bodying">
@@ -22,8 +22,8 @@
                       <li><a href="javascript:void(0)" class="on"><router-link :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'sign'}}">参加的活动</router-link></a></li>
                       <li><a href="javascript:void(0)"><router-link :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'publish'}}">发布的活动</router-link></a></li>
                       <li><a href="javascript:void(0)"><router-link  :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'collection'}}">收藏的活动</router-link></a></li>
-                      <li><a href="javascript:void(0)"><router-link :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'tobeaudited'}}">待审核的活动</router-link></a></li>
-                      <li><a href="javascript:void(0)"><router-link  :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'audited'}}">已审核的活动</router-link></a></li>
+                      <!-- <li><a href="javascript:void(0)"><router-link :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'tobeaudited'}}">待审核的活动</router-link></a></li>
+                      <li><a href="javascript:void(0)"><router-link  :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'audited'}}">已审核的活动</router-link></a></li> -->
                       <li><a href="javascript:void(0)"><router-link  to="/myactivity">个人资料</router-link></a></li>
                   </ul>
                 </div>

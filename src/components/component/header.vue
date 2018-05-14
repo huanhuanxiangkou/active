@@ -24,8 +24,8 @@
           <el-row class="w1080 pd_15_0">
             <el-col :span="8"><div class="logo_school"></div></el-col>
             <el-col :span="12">
-              <el-input placeholder="请输入关键字" class="input-with-select pd_10_0" style="width:502px;">
-                <el-button slot="append" icon="el-icon-search"></el-button>
+              <el-input placeholder="请输入关键字" class="input-with-select pd_10_0" style="width:502px;" v-model="keyWords">
+                <el-button slot="append" icon="el-icon-search" @click="serarchByKey()"></el-button>
               </el-input>
             </el-col>
              <el-col :span="4" class="pd_10_0" style="text-align:center">
@@ -52,7 +52,8 @@ import { Bus } from "@/VueInstance/vueIns";
 export default {
   data() {
     return {
-      username: ""
+      username: "",
+      keyWords: ""
     };
   },
   mounted() {
@@ -92,13 +93,21 @@ export default {
         }
       });
     },
-    userDeatil(){
-      let userId=parseInt(localStorage.getItem("ms_userid"));
+    userDeatil() {
+      let userId = parseInt(localStorage.getItem("ms_userid"));
       this.$router.push({
-        path:"/myview",
-        query:{
-          userId:userId
+        path: "/myview",
+        query: {
+          userId: userId
         }
+      });
+    },
+    serarchByKey() {
+      sessionStorage.setItem("ms_keywords",this.keyWords);
+      Bus.$emit('setKeywords',this.keyWords);
+      this.$router.push({
+        path: "/allActive",
+        query: { type: "keywords" }
       });
     }
   }
@@ -163,7 +172,7 @@ export default {
   cursor: default !important;
   opacity: 1 !important;
 }
-.ms-username{
+.ms-username {
   cursor: pointer;
 }
 </style>

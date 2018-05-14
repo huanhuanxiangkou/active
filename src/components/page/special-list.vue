@@ -4,36 +4,15 @@
     <div class="w960">
         <h3 class="block-title">{{title}}</h3>
         <div class="item-box-3 clearfloat">
-            <div class="item">
-                <a href="http://gz.huodongwang.com/article-27306-1.html" class="item-con" target="_blank">
-                    <div class="img" style="background-image:url(http://www.huodongwang.com/data/attachment/cnyinglan_huodongs/2016/0528/163455hwea3sei3pvavs3w.jpg)">
+            <div class="item" v-for="(activity,index) in activitys" :key="index">
+                <a href="javascript:void(0);" class="item-con" target="_blank" @click="activeDetail(activity)">
+                    <div class="img">
+                        <img :src="activity.activity.photoUrl">
                     </div>
                     <div class="info">
-                        <h2>【广州】黄埔军校2016军旅“少年将帅特训”军事夏令营期待你的加入</h2>
-                        <p>时间：2016-07-10 08:00 ～ 2016-08-20 17:00</p>
-                        <p>地点：广东广州黄埔区军校路170号</p>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="http://gz.huodongwang.com/article-27306-1.html" class="item-con" target="_blank">
-                    <div class="img" style="background-image:url(http://www.huodongwang.com/data/attachment/cnyinglan_huodongs/2016/0528/163455hwea3sei3pvavs3w.jpg)">
-                    </div>
-                    <div class="info">
-                        <h2>【广州】黄埔军校2016军旅“少年将帅特训”军事夏令营期待你的加入</h2>
-                        <p>时间：2016-07-10 08:00 ～ 2016-08-20 17:00</p>
-                        <p>地点：广东广州黄埔区军校路170号</p>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="http://gz.huodongwang.com/article-27306-1.html" class="item-con" target="_blank">
-                    <div class="img" style="background-image:url(http://www.huodongwang.com/data/attachment/cnyinglan_huodongs/2016/0528/163455hwea3sei3pvavs3w.jpg)">
-                    </div>
-                    <div class="info">
-                        <h2>【广州】黄埔军校2016军旅“少年将帅特训”军事夏令营期待你的加入</h2>
-                        <p>时间：2016-07-10 08:00 ～ 2016-08-20 17:00</p>
-                        <p>地点：广东广州黄埔区军校路170号</p>
+                        <h2>{{activity.activity.name}}</h2>
+                        <p>时间：{{activity.activity.dateStart}} ～ {{activity.activity.dateEnd}}</p>
+                        <p>地点：{{activity.activity.address}}</p>
                     </div>
                 </a>
             </div>
@@ -43,54 +22,80 @@
 </template>
 
 <script>
+import { getAllActivitys, findActivityByKey } from "@/api/getInfo";
 export default {
   data() {
     return {
-        title:"",
-        imgSrc:"",
+      title: "",
+      imgSrc: "",
+      activitys: []
     };
   },
   mounted() {
-      this.switchType();
+    this.switchType();
   },
   methods: {
+    getSortActivitys(type) {
+      getAllActivitys()
+        .then(result => {
+          if (result.data.code == 200) {
+            this.activitys = result.data.data.filter(item => {
+              return item.list.some(item2 => {
+                return item2.name == type;
+              });
+            });
+          }
+        })
+        .catch(err => {});
+    },
     switchType() {
+        this.activitys=[];
       switch (this.$route.query.specialType) {
         case "campus":
-        this.title="校办活动";
-        this.imgSrc=require("../../assets/campus.jpg");
+          this.title = "校办活动";
+          this.imgSrc = require("../../assets/campus.jpg");
           break;
         case "depart":
-        this.title="系办活动";
-        this.imgSrc=require("../../assets/depart.jpg");
+          this.title = "系办活动";
+          this.imgSrc = require("../../assets/depart.jpg");
           break;
         case "festival":
-        this.title="节日活动";
-        this.imgSrc=require("../../assets/festival.jpg");
+          this.title = "节日活动";
+          this.imgSrc = require("../../assets/festival.jpg");
           break;
         case "interest":
-        this.title="兴趣活动";
-        this.imgSrc=require("../../assets/interest.jpg");
+          this.title = "兴趣活动";
+          this.imgSrc = require("../../assets/interest.jpg");
           break;
         case "match":
-        this.title="学习活动";
-        this.imgSrc=require("../../assets/match.jpg");
+          this.title = "学习活动";
+          this.imgSrc = require("../../assets/match.jpg");
           break;
         case "person":
-        this.title="个人活动";
-        this.imgSrc=require("../../assets/person.jpg");
+          this.title = "个人活动";
+          this.imgSrc = require("../../assets/person.jpg");
           break;
         case "study":
-        this.title="校办活动";
-        this.imgSrc=require("../../assets/study1.jpg");
+          this.title = "校办活动";
+          this.imgSrc = require("../../assets/study1.jpg");
           break;
         case "team":
-        this.title="团队活动";
-        this.imgSrc=require("../../assets/team.jpg");
+          this.title = "团队活动";
+          this.imgSrc = require("../../assets/team.jpg");
           break;
         default:
           break;
       }
+      this.getSortActivitys(this.title);
+    },
+
+    activeDetail(recommend) {
+      this.$router.push({
+        name: "detail",
+        query: {
+          activityId: recommend.activity.id
+        }
+      });
     }
   }
 };
@@ -111,9 +116,9 @@ export default {
   }
 }
 
-.banner img{
-    width: 100%;
-    height: 450px;
+.banner img {
+  width: 100%;
+  height: 450px;
 }
 .block-title {
   position: relative;
@@ -169,6 +174,10 @@ export default {
 .item-con p:last-child {
   height: 40px;
   overflow: hidden;
+}
+.item-con .img img {
+  width: 100%;
+  height: 210px;
 }
 </style>
 

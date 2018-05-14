@@ -79,7 +79,7 @@
 </template>
 
 <script>
-    // :options="editorOption"
+// :options="editorOption"
 import UE from "../component/ue";
 import { userpublish } from "@/api/getInfo";
 import vueQuillEditor from "./edit.vue";
@@ -140,14 +140,19 @@ export default {
         resource: "",
         detail: "",
         count: 50,
-        user_id:"",
+        user_id: "",
         list: ["比赛活动", "团队活动"],
         cities: cityOptions
       },
       rules: {
         name: [
           { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 2, max: 200, message: "长度在 2 到 200 个字符", trigger: "blur" }
+          {
+            min: 2,
+            max: 200,
+            message: "长度在 2 到 200 个字符",
+            trigger: "blur"
+          }
         ],
         region: [
           { required: true, message: "请选择活动区域", trigger: "change" }
@@ -185,32 +190,32 @@ export default {
   },
   methods: {
     handleAvatarSuccess(res, file) {
-      if(res.code===200){
-        this.ruleForm.photoUrl=res.data.url;
+      if (res.code === 200) {
+        this.ruleForm.photoUrl = res.data.url;
       }
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.ruleForm.user_id=parseInt(localStorage.getItem("ms_userid"));
+          this.ruleForm.user_id = parseInt(localStorage.getItem("ms_userid"));
           userpublish(this.ruleForm)
             .then(res => {
+              if (res.data.code == 200) {
                 this.$confirm("发布成功?", "提示", {
-                confirmButtonText: "发布",
-                cancelButtonText: "返回首页",
-                type: "warning",
-                center: true,
-                callback: action => {
-                  if (action == "confirm") {
-                    this.resetForm('ruleForm');
-                    // localStorage.clear();
-                    // Bus.$emit("setCurrUsername", null);
-                    
-                  } else {
-                       this.$router.push("/");
+                  confirmButtonText: "发布",
+                  cancelButtonText: "返回首页",
+                  type: "warning",
+                  center: true,
+                  callback: action => {
+                    if (action == "confirm") {
+                      this.resetForm("ruleForm");
+                    } else {
+                      this.$router.push("/");
+                    }
                   }
-                }
-              });
+                });
+              }
+
               // console.log(res);
             })
             .catch();
