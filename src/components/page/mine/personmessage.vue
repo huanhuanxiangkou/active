@@ -3,7 +3,7 @@
        <div class="form">
          <el-form ref="form" :model="form" label-width="100px">
             <el-form-item>
-                <el-upload
+                <!-- <el-upload
                   class="avatar-uploader"
                   action="https://jsonplaceholder.typicode.com/posts/"
                   :show-file-list="false"
@@ -11,7 +11,7 @@
                   :before-upload="beforeAvatarUpload">
                   <img v-if="imageUrl" :src="imageUrl" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
+                </el-upload> -->
              </el-form-item>
             <el-form-item label="昵称：">
               <el-input v-model="form.name"></el-input>
@@ -27,8 +27,17 @@
                     placeholder="选择日期">
                   </el-date-picker>
              </el-form-item>
+               <el-form-item label="自我介绍：">
+              <el-input v-model="form.desc"></el-input>
+              </el-form-item>
              <el-form-item label="手机号码：">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.phone"></el-input>
+              </el-form-item>
+               <el-form-item label="邮箱：">
+              <el-input v-model="form.email"></el-input>
+              </el-form-item>
+               <el-form-item >
+                <el-button type="" >确认修改</el-button>
               </el-form-item>
             </el-form>
 
@@ -43,8 +52,9 @@ export default {
       form: {
           name: '',
           region: '',
-          date1: '',
-          date2: '',
+          data:'',
+          phone:'',
+          email:'',
           delivery: false,
           type: [],
           resource: '',

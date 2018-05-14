@@ -27,8 +27,7 @@ const allActive = r => require.ensure([], () => r(require('@/components/page/all
 const publish = r => require.ensure([], () => r(require('@/components/page/publish')), 'publish');
 
 const person = r => require.ensure([], () => r(require('@/components/page/mine/personmessage')), 'personmessage');
-
-const myactivity = r => require.ensure([], () => r(require('@/components/page/mine/myactivity')), 'myactivity');
+const changepassword = r => require.ensure([], () => r(require('@/components/page/mine/changepassword')), 'changepassword');
 
 const routes = [
   {
@@ -91,6 +90,11 @@ const routes = [
         path: '/person',
         name: 'person',
         component: person
+      },
+      {
+        path: '/change',
+        name: 'change',
+        component: changepassword
       }
     ]
   },
