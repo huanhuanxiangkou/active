@@ -48,7 +48,7 @@ export const findOne = (id) => baseAxios.get('/activity/findOne/' + id)
 /**
  * 根据关键字查询活动
  */
-export const findActivityByKey = (name) => baseAxios.get('/activity/findTypeByName/' + name)
+export const findActivityByKey = (name) => baseAxios.get('/activity/findActivityByName/' + name)
 /**
  * 收藏活动
  */
@@ -86,3 +86,8 @@ export const activitySignup = (data) => baseAxios.post('/signup/operation', data
  * 查看用户报名的活动
  */
 export const getSignupActivitys = (userID) => baseAxios.get('/signup/findByUser/'+userID)
+
+/**
+ * admin
+ */
+export const applyPublishActivity = data => baseAxios.post('/user/admin/operation2', data)

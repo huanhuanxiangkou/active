@@ -77,7 +77,8 @@ export default {
           this.getActivitys("个人活动");
           break;
         case "keywords":
-          this.keyWords = localStorage.getItem("ms_keywords");
+          this.keyWords = sessionStorage.getItem("ms_keywords");
+          // console.log(localStorage.getItem("ms_keywords"));
           this.getActivitysByKeywords(this.keyWords);
           break;
         default:

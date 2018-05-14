@@ -49,6 +49,7 @@
 
 <script>
 import { Bus } from "@/VueInstance/vueIns";
+import { userRegister } from "@/api/getInfo";
 export default {
   data() {
     return {
@@ -74,7 +75,39 @@ export default {
   },
   methods: {
     publishActive() {
-      this.$router.push({ path: "/publish" });
+      let userrole = parseInt(localStorage.getItem("ms_userrole"));
+      let userId = parseInt(localStorage.getItem("ms_userid"));
+      let userName = localStorage.getItem("ms_username");
+      if (userrole == 2) {
+        this.$confirm("您还没有发布活动的权限? 请点击申请升级权限！", "提示", {
+          confirmButtonText: "申请升级权限",
+          cancelButtonText: "取消",
+          type: "warning",
+          center: true,
+          callback: action => {
+            if (action == "confirm") {
+              userRegister({
+                name: userName,
+                isapply: 1,
+                id: userId
+              })
+                .then(result => {
+                  if (result.data.code == 200) {
+                    this.$message({
+                      showClose: true,
+                      message: "正在申请中..",
+                      type: "success"
+                    });
+                  }
+                })
+                .catch(err => {});
+            } else {
+            }
+          }
+        });
+      } else {
+        this.$router.push({ path: "/publish" });
+      }
     },
     handleCommand(command) {
       var that = this.computed;
@@ -103,8 +136,8 @@ export default {
       });
     },
     serarchByKey() {
-      sessionStorage.setItem("ms_keywords",this.keyWords);
-      Bus.$emit('setKeywords',this.keyWords);
+      sessionStorage.setItem("ms_keywords", this.keyWords);
+      Bus.$emit("setKeywords", this.keyWords);
       this.$router.push({
         path: "/allActive",
         query: { type: "keywords" }

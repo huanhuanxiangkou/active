@@ -52,7 +52,8 @@ import {userRegister} from '@/api/getInfo'
         ruleForm: {
           name: '',
           password:'',
-          checkPass:''
+          checkPass:'',
+          isapply:0
         },
         rules: {
           name:[

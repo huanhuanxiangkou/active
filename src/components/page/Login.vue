@@ -18,9 +18,8 @@
                         <el-form-item>
                             <!-- <div class="radio"> -->
                                 <el-radio-group v-model="ruleForm.role">
-                                      <el-radio :label="1">学生</el-radio>
-                                      <el-radio :label="2">社长</el-radio>
-                                      <el-radio :label="3">管理员</el-radio>
+                                      <el-radio :label="2">普通用户</el-radio>
+                                      <el-radio :label="3">超级用户</el-radio>
                                   </el-radio-group>
                             <!-- </div> -->
                         </el-form-item>
