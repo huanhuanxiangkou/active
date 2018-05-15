@@ -19,12 +19,13 @@
               </div>
                <div class="myhome-sidebar-nav">
                   <ul>
-                      <li><a href="javascript:void(0)" class="on"><router-link :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'sign'}}">参加的活动</router-link></a></li>
-                      <li><a href="javascript:void(0)"><router-link :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'publish'}}">发布的活动</router-link></a></li>
-                      <li><a href="javascript:void(0)"><router-link  :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'collection'}}">收藏的活动</router-link></a></li>
+                      <li><a href="javascript:void(0)" class="on"><router-link :to="{path:'/myactivity',query:{acType:'sign'}}">参加的活动</router-link></a></li>
+                      <li><a href="javascript:void(0)"><router-link :to="{path:'/myactivity',query:{acType:'publish'}}">发布的活动</router-link></a></li>
+                      <li><a href="javascript:void(0)"><router-link  :to="{path:'/myactivity',query:{acType:'collection'}}">收藏的活动</router-link></a></li>
                       <!-- <li><a href="javascript:void(0)"><router-link :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'tobeaudited'}}">待审核的活动</router-link></a></li>
                       <li><a href="javascript:void(0)"><router-link  :to="{path:'/myactivity',query:{userId:$route.query.userId,acType:'audited'}}">已审核的活动</router-link></a></li> -->
-                      <li><a href="javascript:void(0)"><router-link  to="/myactivity">个人资料</router-link></a></li>
+                      <li><a href="javascript:void(0)"><router-link  to="/person">个人资料</router-link></a></li>
+                      <li><a href="javascript:void(0)"><router-link  to="/change">修改密码</router-link></a></li>
                   </ul>
                 </div>
               </div>
@@ -41,7 +42,7 @@
   </div>
 </template>
 <script>
-import { findOne, activitySignup, getUserById } from "@/api/getInfo";
+import { getUserById } from "@/api/getInfo";
 export default {
   data() {
     return {
@@ -49,7 +50,8 @@ export default {
     };
   },
   mounted() {
-    getUserById(this.$route.query.userId)
+    let userId = parseInt(localStorage.getItem("ms_userid"));
+    getUserById(userId)
       .then(res => {
         if (res.data.code == 200) {
           this.user = res.data.data;
@@ -65,10 +67,14 @@ export default {
 .ghh_view .cm-page {
   width: auto;
   background: #5e7aa1
-    url(http://image.baidu.com/search/detail?ct=503316480&z=&tn=baiduimagedetail&ipn=d&word=%E8%83%8C%E6%99%AF&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=-1&cs=1978103051,4226632896&os=1067603837,1676129945&simid=0,0&pn=13&rn=1&di=53720198420&ln=1994&fr=&fmq=1526179216168_R&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&is=0,0&istype=2&ist=&jit=&bdtype=13&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb21bb051f819861829ad39a040ed2e738bd4e628.jpg&rpstart=0&rpnum=0&adpicid=0) no-repeat center -110px;
+    url(
+      http: 4226632896&os=1067603837,1676129945&simid=0,
+      0&pn=13&rn=1&di=53720198420&ln=1994&fr=&fmq=1526179216168_R&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&is=0,
+      0&istype=2&ist=&jit=&bdtype=13&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb21bb051f819861829ad39a040ed2e738bd4e628.jpg&rpstart=0&rpnum=0&adpicid=0
+    )
+    no-repeat center -110px;
   padding-top: 100px;
 }
-
 .ghh_view .myhome {
   background-color: rgba(0, 0, 0, 0.2);
   padding: 10px;
@@ -89,7 +95,13 @@ export default {
 }
 .ghh_view .myhome-avatar .heading {
   background: #5e7aa1
-    url(http://image.baidu.com/search/detail?ct=503316480&z=&tn=baiduimagedetail&ipn=d&word=%E8%83%8C%E6%99%AF&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=-1&cs=1978103051,4226632896&os=1067603837,1676129945&simid=0,0&pn=13&rn=1&di=53720198420&ln=1994&fr=&fmq=1526179216168_R&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&is=0,0&istype=2&ist=&jit=&bdtype=13&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb21bb051f819861829ad39a040ed2e738bd4e628.jpg&rpstart=0&rpnum=0&adpicid=0) no-repeat center;
+    url(
+      http: 4226632896&os=1067603837,
+      1676129945&simid=0,
+      0&pn=13&rn=1&di=53720198420&ln=1994&fr=&fmq=1526179216168_R&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&is=0,
+      0&istype=2&ist=&jit=&bdtype=13&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb21bb051f819861829ad39a040ed2e738bd4e628.jpg&rpstart=0&rpnum=0&adpicid=0
+    )
+    no-repeat center;
   /* background: url(http://dl.bizhi.sogou.com/images/2012/03/01/118481.jpg) no-repeat center center / cover; */
   position: relative;
   height: 75px;
@@ -160,7 +172,6 @@ export default {
   text-align: center;
   background-color: #fff;
 }
-
 .ghh_view .myhome-article {
   padding: 15px;
   background-color: #fff;
@@ -168,7 +179,6 @@ export default {
   margin-bottom: 15px;
   position: relative;
 }
-
 .ghh_view .myhome-article .img {
   float: left;
   background: no-repeat center center / cover;
@@ -176,40 +186,32 @@ export default {
   height: 110px;
   margin-right: 15px;
 }
-
 .ghh_view .myhome-article .info {
   overflow: hidden;
   min-height: 110px;
 }
-
 .ghh_view .myhome-article .info h2 {
   font-size: 16px;
   font-weight: 400;
   border-bottom: 1px dashed #ccc;
   padding-bottom: 10px;
 }
-
 .ghh_view .myhome-article .info p {
   margin-top: 10px;
 }
-
 .ghh_view .myhome-article .info .state {
   padding-left: 15px;
 }
-
 .ghh_view .myhome-article .info p {
   margin-top: 10px;
 }
-
 .ghh_view .myhome-article .info p {
   margin-top: 10px;
 }
-
 .ghh_view .myhome .btn-danger {
   background-color: #dd514c;
   border-color: #dd514c;
 }
-
 .ghh_view .myhome .btn {
   display: inline-block;
   color: #fff;

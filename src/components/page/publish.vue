@@ -16,7 +16,7 @@
                   v-model="ruleForm.dateStart"
                   type="datetime"
                   placeholder="选择日期时间"
-                  value-format="yyyy-mm-dd hh:mi:ss"
+                  value-format="yyyy-mm-dd hh:mm:ss"
                   prop='dataStart '
                   >
                 </el-date-picker>
@@ -26,7 +26,7 @@
                   v-model="ruleForm.dateEnd"
                   type="datetime"
                   placeholder="选择日期时间"
-                  value-format="yyyy-mm-dd hh:mi:ss"
+                  value-format="yyyy-mm-dd hh:mm:ss"
                   >
                 </el-date-picker>
           </el-form-item>

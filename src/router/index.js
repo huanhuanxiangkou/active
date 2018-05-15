@@ -31,8 +31,7 @@ const person = r => require.ensure([], () => r(require('@/components/page/mine/p
 const myactivity = r => require.ensure([], () => r(require('@/components/page/mine/myactivity')), 'myactivity');
 const changepassword = r => require.ensure([], () => r(require('@/components/page/mine/changepassword')), 'changepassword');
 
-const routes = [
-  {
+const routes = [{
     path: '/special/list',
     name: 'speciallist',
     component: specialList
@@ -41,8 +40,7 @@ const routes = [
     path: '',
     name: '',
     component: home,
-    children: [
-      {
+    children: [{
         path: '/login',
         name: 'login',
         component: login
@@ -62,11 +60,20 @@ const routes = [
         path: '/myview',
         name: 'myview',
         component: myview,
-        children: [
-          {
+        children: [{
             path: '/myactivity',
             name: 'myactivity',
             component: myactivity
+          },
+          {
+            path: '/person',
+            name: 'person',
+            component: person
+          },
+          {
+            path: '/change',
+            name: 'change',
+            component: changepassword
           }
         ]
       }, {
@@ -88,16 +95,7 @@ const routes = [
           requiresAuth: true,
         },
         component: publish
-      }, {
-        path: '/person',
-        name: 'person',
-        component: person
       },
-      {
-        path: '/change',
-        name: 'change',
-        component: changepassword
-      }
     ]
   },
 ];
@@ -112,7 +110,9 @@ router.beforeEach((to, from, next) => {
     if (!loginStatus) {
       next({
         path: '/login',
-        query: { redirect: to.fullPath }
+        query: {
+          redirect: to.fullPath
+        }
       })
     } else {
       next()

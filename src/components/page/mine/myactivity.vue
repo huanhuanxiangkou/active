@@ -62,9 +62,10 @@ export default {
     switchType() {
       this.activitys = [];
       this.isCollection = false;
+      let userId = parseInt(localStorage.getItem("ms_userid"));
       switch (this.$route.query.acType) {
         case "sign":
-          getSignupActivitys(this.$route.query.userId)
+          getSignupActivitys(userId)
             .then(res => {
               if (res.data.code == 200) {
                 this.activitys = res.data.data;
@@ -88,7 +89,7 @@ export default {
             .catch();
           break;
         case "collection":
-          getCollectionActivitys(this.$route.query.userId)
+          getCollectionActivitys(userId)
             .then(res => {
               if (res.data.code == 200) {
                 this.activitys = res.data.data;
